@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeHub - Habit Check-in</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/LifeHub/app/static/CSS/habit/checkin.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <a class="brand" href="#">
+            <i data-lucide="leaf"></i>
+            <span>LifeHub</span>
+        </a>
+
+        <nav class="nav-menu" aria-label="Main navigation">
+            <a class="nav-item" href="/LifeHub/app/templates/dashboard.html"><i data-lucide="home"></i><span>Dashboard</span></a>
+            <a class="nav-item" href="#"><i data-lucide="utensils"></i><span>Meal</span></a>
+            <a class="nav-item active" href="/LifeHub/app/templates/habit/list.html"><i data-lucide="circle-check"></i><span>Habit</span></a>
+            <a class="nav-item" href="#"><i data-lucide="wallet-cards"></i><span>Expense</span></a>
+            <a class="nav-item" href="#"><i data-lucide="calendar-days"></i><span>Calendar</span></a>
+            <a class="nav-item" href="#"><i data-lucide="bar-chart-3"></i><span>Reports</span></a>
+            <a class="nav-item" href="#"><i data-lucide="settings"></i><span>Settings</span></a>
+        </nav>
+
+        <section class="encourage-card" aria-label="Encouragement">
+            <div>
+                <h2>Keep going! 🌱</h2>
+                <p>Thói quen nhỏ hôm nay sẽ tạo nên kết quả lớn ngày mai.</p>
+            </div>
+            <div class="plant-art" aria-hidden="true">
+                <span class="leaf leaf-one"></span>
+                <span class="leaf leaf-two"></span>
+                <span class="leaf leaf-three"></span>
+                <span class="pot"></span>
+            </div>
+        </section>
+    </aside>
+
+    <main class="checkin-page">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-button" type="button" aria-label="Mở menu">
+                    <i data-lucide="menu"></i>
+                </button>
+                <strong>Habit Check-in</strong>
+            </div>
+
+            <div class="topbar-right">
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Chuyển dark light mode" aria-pressed="false">
+                    <span class="theme-option sun"><i data-lucide="sun"></i></span>
+                    <span class="theme-option moon"><i data-lucide="moon"></i></span>
+                </button>
+                <button class="icon-button notify-button" type="button" aria-label="Thông báo">
+                    <i data-lucide="bell"></i>
+                    <span></span>
+                </button>
+                <button class="user-menu" type="button">
+                    <span class="avatar">👨🏻</span>
+                    <span>Xin chào, User</span>
+                    <i data-lucide="chevron-down"></i>
+                </button>
+            </div>
+        </header>
+
+        <section class="hero-row">
+            <h1>Check-in hôm nay</h1>
+            <p>Đánh dấu hoàn thành các thói quen của bạn trong ngày hôm nay.</p>
+        </section>
+
+        <section class="content-grid">
+            <div class="main-column">
+                <section class="streak-card">
+                    <div class="streak-summary">
+                        <span class="flame" aria-hidden="true">🔥</span>
+                        <div>
+                            <h2>Streak hiện tại</h2>
+                            <strong>12 ngày</strong>
+                            <p>Cố gắng duy trì nhé! 💪</p>
+                        </div>
+                    </div>
+                    <div class="week-status" id="weekStatus" aria-label="Tình trạng tuần này"></div>
+                </section>
+
+                <section class="checkin-list-section">
+                    <h2>Danh sách thói quen cần check-in</h2>
+                    <div class="checkin-list" id="checkinList"></div>
+                    <div class="save-area">
+                        <button class="save-button" id="saveCheckin" type="button">
+                            <i data-lucide="save"></i>
+                            <span>Lưu check-in hôm nay</span>
+                        </button>
+                        <p>Bạn có thể chỉnh sửa trước khi lưu</p>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="side-column">
+                <section class="card calendar-card">
+                    <div class="card-header">
+                        <h2>Lịch tháng này</h2>
+                    </div>
+                    <div class="month-nav">
+                        <button type="button" aria-label="Tháng trước"><i data-lucide="chevron-left"></i></button>
+                        <strong>Tháng 5, 2025</strong>
+                        <button type="button" aria-label="Tháng sau"><i data-lucide="chevron-right"></i></button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid" aria-label="Lịch tháng 5 năm 2025"></div>
+                    <div class="calendar-legend">
+                        <span><i class="done"></i>Đã hoàn thành</span>
+                        <span><i class="partial"></i>Một phần</span>
+                        <span><i class="none"></i>Chưa check-in</span>
+                    </div>
+                </section>
+
+                <section class="card today-info">
+                    <h2>Thông tin hôm nay</h2>
+                    <div class="info-row">
+                        <span class="info-icon">🎯</span>
+                        <div>
+                            <strong>Hoàn thành</strong>
+                            <b id="todayComplete">4 / 5 habit</b>
+                        </div>
+                        <span class="ring" id="completeRing">80%</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">🔥</span>
+                        <div>
+                            <strong>Streak hiện tại</strong>
+                            <b>12 ngày</b>
+                        </div>
+                        <span class="praise">Tuyệt vời! 🔥</span>
+                    </div>
+                </section>
+
+                <section class="motivation-card">
+                    <h2>Motivation</h2>
+                    <blockquote>
+                        “Thói quen tốt là chìa khóa mở cánh cửa của mọi thành công.”
+                        <cite>- James Clear</cite>
+                    </blockquote>
+                </section>
+            </aside>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="/LifeHub/app/static/JS/habit/checkin.js"></script>
+</body>
+</html>

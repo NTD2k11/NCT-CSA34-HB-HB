@@ -1,0 +1,567 @@
+/* =======================
+    RESET
+======================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body{
+    background:#F9F9F5;
+    color:#333;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+ul{
+    list-style:none;
+}
+
+/* =======================
+    LAYOUT
+======================= */
+
+.container{
+    display:flex;
+    min-height:100vh;
+}
+
+/* =======================
+    SIDEBAR
+======================= */
+
+.sidebar{
+
+    width:250px;
+
+    background:#2D6A4F;
+
+    color:white;
+
+    display:flex;
+    flex-direction:column;
+
+    padding:30px 25px;
+
+}
+
+.logo{
+
+    margin-bottom:50px;
+
+}
+
+.logo h1{
+
+    font-size:34px;
+
+}
+
+.sidebar ul{
+
+    display:flex;
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.sidebar li{
+
+    border-radius:12px;
+
+    transition:.3s;
+
+}
+
+.sidebar li:hover{
+
+    background:rgba(255,255,255,.15);
+
+}
+
+.sidebar li.active{
+
+    background:rgba(255,255,255,.2);
+
+}
+
+.sidebar li a{
+
+    display:block;
+
+    padding:15px;
+
+    font-size:17px;
+
+}
+
+/* =======================
+    MAIN
+======================= */
+
+.main{
+
+    flex:1;
+
+    padding:30px 40px;
+
+}
+
+/* =======================
+    TOPBAR
+======================= */
+
+.topbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:40px;
+
+}
+
+.title h2{
+
+    color:#2D6A4F;
+
+    font-size:32px;
+
+}
+
+.top-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.theme-btn{
+
+    width:45px;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:white;
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+}
+
+.notification{
+
+    font-size:22px;
+
+    cursor:pointer;
+
+}
+
+.profile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.profile img{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+}
+
+.profile span{
+
+    font-weight:600;
+
+}
+
+/* =======================
+    WELCOME
+======================= */
+
+.welcome{
+
+    margin-bottom:35px;
+
+}
+
+.welcome h1{
+
+    font-size:38px;
+
+    color:#2D6A4F;
+
+    margin-bottom:15px;
+
+}
+
+.welcome p{
+
+    font-size:18px;
+
+    color:#666;
+
+}
+
+/* =======================
+    CONTENT
+======================= */
+
+.content{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:30px;
+
+}
+
+/* =======================
+    FORM
+======================= */
+
+.card{
+
+    background:white;
+
+    border-radius:16px;
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    border:1px solid #E0E0E0;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
+
+}
+
+.card h3{
+
+    color:#2D6A4F;
+
+    margin-bottom:20px;
+
+}
+
+.card label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:500;
+
+}
+
+.card input{
+
+    width:100%;
+
+    padding:14px;
+
+    border-radius:10px;
+
+    border:1px solid #DDD;
+
+    font-size:15px;
+
+}
+
+.card input:focus{
+
+    outline:none;
+
+    border-color:#2D6A4F;
+
+}
+
+/* =======================
+    BUTTON
+======================= */
+
+.start-btn{
+
+    width:100%;
+
+    background:#2D6A4F;
+
+    color:white;
+
+    border:none;
+
+    padding:18px;
+
+    font-size:18px;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.start-btn:hover{
+
+    background:#24553E;
+
+}
+
+/* =======================
+    RIGHT CARD
+======================= */
+
+.info-card,
+.tip-card{
+
+    background:white;
+
+    border-radius:16px;
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    border:1px solid #E0E0E0;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
+
+}
+
+.info-card h3,
+.tip-card h3{
+
+    color:#2D6A4F;
+
+    margin-bottom:20px;
+
+}
+
+.info-card ul{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.info-card li{
+
+    color:#555;
+
+}
+
+.tip-card p{
+
+    line-height:1.7;
+
+    color:#666;
+
+}
+
+/* =======================
+    RESPONSIVE
+======================= */
+
+@media(max-width:1100px){
+
+.content{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:850px){
+
+.container{
+
+flex-direction:column;
+
+}
+
+.sidebar{
+
+width:100%;
+
+}
+
+.main{
+
+padding:20px;
+
+}
+
+.topbar{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:20px;
+
+}
+
+}
+
+.theme-toggle{
+
+    display:flex;
+
+    background:white;
+
+    border-radius:50px;
+
+    padding:5px;
+
+    gap:8px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+}
+
+.theme-toggle span{
+
+    width:38px;
+
+    height:38px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+    border-radius:50%;
+
+    transition:.3s;
+
+}
+
+.theme-toggle span.active{
+
+    background:#2D6A4F;
+
+    color:white;
+
+}
+
+body.dark{
+
+    background:#121212;
+
+    color:white;
+
+}
+body.dark .sidebar{
+
+    background:#1A1A1A;
+
+}
+body.dark .main{
+
+    background:#121212;
+
+}
+body.dark .card,
+body.dark .info-card,
+body.dark .tip-card{
+
+    background:#1F1F1F;
+
+    border:1px solid #333;
+
+    color:white;
+
+}
+body.dark input{
+
+    background:#2B2B2B;
+
+    color:white;
+
+    border:1px solid #555;
+
+}
+
+body.dark input::placeholder{
+
+    color:#BBB;
+
+}
+body.dark .start-btn{
+
+    background:#3A7D5A;
+
+}
+
+body.dark .start-btn:hover{
+
+    background:#2D6A4F;
+
+}
+body.dark .welcome h1{
+
+    color:#8FD6B2;
+
+}
+
+body.dark .welcome p{
+
+    color:#CCCCCC;
+
+}
+body.dark label{
+
+    color:#EEEEEE;
+
+}
+body.dark .theme-btn{
+
+    background:#2B2B2B;
+
+    color:white;
+
+}
+
+body.dark .profile span{
+
+    color:white;
+
+}

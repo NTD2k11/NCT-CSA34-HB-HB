@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeHub - Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/LifeHub/app/static/CSS/dashboard.css">
+</head>
+
+<body>
+<aside class="sidebar">
+    <a class="brand" href="#">
+        <span>LifeHub</span>
+        <i data-lucide="leaf"></i>
+    </a>
+
+    <nav class="nav-menu" aria-label="Main navigation">
+        <a class="nav-item active" href="#"><i data-lucide="home"></i><span>Dashboard</span></a>
+        <a class="nav-item" href="#"><i data-lucide="utensils"></i><span>Meals</span></a>
+        <a class="nav-item" href="#"><i data-lucide="circle-check"></i><span>Habits</span></a>
+        <a class="nav-item" href="#"><i data-lucide="wallet-cards"></i><span>Expenses</span></a>
+        <a class="nav-item" href="#"><i data-lucide="chart-no-axes-combined"></i><span>Analytics</span></a>
+        <a class="nav-item" href="#"><i data-lucide="calendar-days"></i><span>Calendar</span></a>
+        <a class="nav-item" href="#"><i data-lucide="file-text"></i><span>Reports</span></a>
+        <a class="nav-item" href="#"><i data-lucide="settings"></i><span>Settings</span></a>
+    </nav>
+
+    <section class="premium-card">
+        <i data-lucide="crown"></i>
+        <h3>Go Premium</h3>
+        <p>Unlock advanced insights and reach your goals faster.</p>
+        <button type="button">Upgrade Now</button>
+    </section>
+
+    <section class="profile-card">
+        <div class="avatar">LN</div>
+        <button class="icon-button" type="button" aria-label="Profile menu">
+            <i data-lucide="more-vertical"></i>
+        </button>
+        <h3>Linh Nguyen</h3>
+        <p>linh.nguyen@example.com</p>
+        <a class="logout" href="#"><i data-lucide="log-out"></i><span>Log out</span></a>
+    </section>
+</aside>
+
+<main class="dashboard">
+    <header class="topbar">
+        <div>
+            <h1>Good morning, Linh!</h1>
+            <p>You're doing great! Let's build healthy habits and a better life.</p>
+        </div>
+
+        <div class="top-actions">
+            <label class="search-box">
+                <input type="search" aria-label="Search" placeholder="Search anything...">
+                <i data-lucide="search"></i>
+            </label>
+            <button class="icon-button badge-button" type="button" aria-label="Notifications">
+                <i data-lucide="bell"></i>
+                <span>3</span>
+            </button>
+            <button class="icon-button" type="button" aria-label="Calendar">
+                <i data-lucide="calendar-days"></i>
+            </button>
+        </div>
+    </header>
+
+    <section class="metrics-grid" id="metricsGrid" aria-label="Health summary"></section>
+
+    <section class="content-grid">
+        <article class="card meal-card">
+            <div class="card-header">
+                <h2>Today's Meal Plan</h2>
+                <a href="#">View all</a>
+            </div>
+            <div class="meal-list" id="mealList"></div>
+            <button class="primary-button" type="button"><i data-lucide="plus"></i><span>Log Meal</span></button>
+        </article>
+
+        <article class="card habit-card">
+            <div class="card-header">
+                <h2>Habit Tracker</h2>
+                <a href="#">View all</a>
+            </div>
+            <div class="habit-head">
+                <span>Habit</span>
+                <span>Progress</span>
+                <span>Streak</span>
+            </div>
+            <div class="habit-list" id="habitList"></div>
+            <button class="accent-button" type="button">Check-in All</button>
+        </article>
+
+        <article class="card expense-card">
+            <div class="card-header">
+                <h2>Expenses Overview</h2>
+                <button class="select-button" type="button">This month <i data-lucide="chevron-down"></i></button>
+            </div>
+            <div class="expense-layout">
+                <div class="expense-summary">
+                    <span>Total Spent</span>
+                    <strong>2,450,000d</strong>
+                    <div class="trend"><i data-lucide="arrow-down"></i> 8.5%</div>
+                    <small>vs last month</small>
+                    <div class="donut-wrap">
+                        <canvas id="expenseChart" width="220" height="220" aria-label="Expense chart"></canvas>
+                        <div class="donut-label"><strong>2.45M</strong><span>dong</span></div>
+                    </div>
+                </div>
+                <div class="expense-legend" id="expenseLegend"></div>
+            </div>
+            <button class="outline-button" type="button">View Details</button>
+        </article>
+    </section>
+
+    <section class="bottom-grid">
+        <article class="card weekly-card">
+            <div class="card-header">
+                <h2>Weekly Overview</h2>
+                <button class="select-button" type="button">This week <i data-lucide="chevron-down"></i></button>
+            </div>
+            <div class="weekly-stats">
+                <div><i data-lucide="flame"></i><span>Calories</span><strong>8,450 kcal</strong><small>+ 12%</small></div>
+                <div><i data-lucide="bike"></i><span>Workouts</span><strong>3 times</strong><small>+ 20%</small></div>
+                <div><i data-lucide="droplets"></i><span>Water</span><strong>9.2 L</strong><small>+ 8%</small></div>
+            </div>
+            <canvas id="weeklyChart" height="170" aria-label="Weekly progress chart"></canvas>
+        </article>
+
+        <article class="card upcoming-card">
+            <div class="card-header">
+                <h2>Upcoming</h2>
+                <a href="#">View calendar</a>
+            </div>
+            <div class="upcoming-list" id="upcomingList"></div>
+        </article>
+
+        <article class="card quick-card">
+            <h2>Quick Add</h2>
+            <div class="quick-grid" id="quickGrid"></div>
+        </article>
+
+        <article class="coach-card">
+            <div class="coach-illustration" aria-hidden="true">
+                <div class="sun"></div>
+                <div class="person">
+                    <div class="head"></div>
+                    <div class="hair"></div>
+                    <div class="body"></div>
+                    <div class="bowl"></div>
+                </div>
+                <div class="plant plant-left"></div>
+                <div class="plant plant-right"></div>
+            </div>
+            <h2>Small steps today, big changes tomorrow.</h2>
+            <p>You're doing great! Keep going and don't stop believing in yourself.</p>
+            <button type="button">View Progress</button>
+        </article>
+    </section>
+</main>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script defer src="/LifeHub/app/static/JS/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeHub | Expense Start</title>
+
+    <link rel="stylesheet" href="../../static/CSS/expenses/start.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ================= Sidebar ================= -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <h1>🌿 LifeHub</h1>
+
+            </div>
+
+            <nav>
+
+                <ul>
+
+                    <li>
+                        <a href="../dashboard.html">
+                            🏠 Dashboard
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="../meal/list.html">
+                            🥗 Meal
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="../habit/list.html">
+                            ✅ Habit
+                        </a>
+                    </li>
+
+                    <li class="active">
+                        <a href="list.html">
+                            💰 Expense
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+        </aside>
+
+        <!-- ================= Main ================= -->
+
+        <main class="main">
+
+            <!-- ===== Topbar ===== -->
+
+            <header class="topbar">
+
+                <div class="title">
+
+                    <h2>Expense Manager</h2>
+
+                </div>
+
+                <div class="top-right">
+
+                    <div class="theme-toggle">
+
+                        <span id="lightBtn">
+                            ☀️
+                        </span>
+
+                        <span id="darkBtn">
+                            🌙
+                        </span>
+
+                    </div>
+
+                    <div class="notification">
+                        🔔
+                    </div>
+
+                    <div class="profile">
+
+                        <img src="../../static/IMG/avatar.png" alt="avatar">
+
+                        <span>Quang Lê</span>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- ===== Welcome ===== -->
+
+            <section class="welcome">
+
+                <h1>
+                    Chào mừng đến với Expense Manager
+                </h1>
+
+                <p>
+
+                    Hãy thiết lập ngân sách để LifeHub giúp bạn theo dõi và quản lý chi tiêu hiệu quả.
+
+                </p>
+
+            </section>
+
+            <!-- ================= Content ================= -->
+
+            <section class="content">
+
+                <!-- Left -->
+
+                <div class="left">
+
+                    <form>
+
+                        <div class="card">
+
+                            <h3>
+                                💰 Thiết lập ngân sách tháng
+                            </h3>
+
+                            <label>
+
+                                Ngân sách
+
+                            </label>
+
+                            <input type="number" placeholder="Ví dụ: 8000000">
+
+                        </div>
+
+                        <div class="card">
+
+                            <h3>
+                                🎯 Mục tiêu tiết kiệm
+                            </h3>
+
+                            <label>
+
+                                Số tiền mong muốn
+
+                            </label>
+
+                            <input type="number" placeholder="Ví dụ: 2000000">
+
+                        </div>
+
+                        <div class="card">
+
+                            <h3>
+                                📅 Tháng bắt đầu
+                            </h3>
+
+                            <label>
+
+                                Chọn tháng
+
+                            </label>
+
+                            <input type="month">
+
+                        </div>
+
+                        <button class="start-btn">
+
+                            Bắt đầu sử dụng →
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+                <!-- Right -->
+
+                <div class="right">
+
+                    <div class="info-card">
+
+                        <h3>
+
+                            📊 Vì sao nên đặt ngân sách?
+
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Kiểm soát chi tiêu.
+                            </li>
+
+                            <li>
+                                Tiết kiệm hiệu quả.
+                            </li>
+
+                            <li>
+                                Tránh chi vượt ngân sách.
+                            </li>
+
+                            <li>
+                                Theo dõi tài chính mỗi tháng.
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="tip-card">
+
+                        <h3>
+
+                            💡 Mẹo nhỏ
+
+                        </h3>
+
+                        <p>
+
+                            Bạn nên dành khoảng
+                            <strong>20%</strong>
+                            thu nhập cho tiết kiệm và quỹ dự phòng.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+<script src="/LifeHub/app/static/JS/expenses/start.js"></script>
+</body>
+
+</html>

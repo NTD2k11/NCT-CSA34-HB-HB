@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeHub - Habit Tracker</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/LifeHub/app/static/CSS/habit/list.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <a class="brand" href="#">
+            <i data-lucide="leaf"></i>
+            <span>LifeHub</span>
+        </a>
+
+        <nav class="nav-menu" aria-label="Main navigation">
+            <a class="nav-item" href="/LifeHub/app/templates/dashboard.html">
+                <i data-lucide="home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="nav-item" href="#">
+                <i data-lucide="utensils"></i>
+                <span>Meal</span>
+            </a>
+            <a class="nav-item active" href="#">
+                <i data-lucide="circle-check"></i>
+                <span>Habit</span>
+            </a>
+            <a class="nav-item" href="#">
+                <i data-lucide="wallet-cards"></i>
+                <span>Expense</span>
+            </a>
+            <a class="nav-item" href="#">
+                <i data-lucide="calendar-days"></i>
+                <span>Calendar</span>
+            </a>
+            <a class="nav-item" href="#">
+                <i data-lucide="bar-chart-3"></i>
+                <span>Reports</span>
+            </a>
+            <a class="nav-item" href="#">
+                <i data-lucide="settings"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <section class="encourage-card" aria-label="Encouragement">
+            <div>
+                <h2>Keep going!</h2>
+                <p>Thói quen nhỏ hôm nay sẽ tạo nên kết quả lớn ngày mai.</p>
+            </div>
+            <div class="plant-art" aria-hidden="true">
+                <span class="sparkle sparkle-one"></span>
+                <span class="sparkle sparkle-two"></span>
+                <span class="leaf leaf-one"></span>
+                <span class="leaf leaf-two"></span>
+                <span class="leaf leaf-three"></span>
+                <span class="pot"></span>
+            </div>
+        </section>
+    </aside>
+
+    <main class="habit-page">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-button" type="button" aria-label="Mở menu">
+                    <i data-lucide="menu"></i>
+                </button>
+                <strong>Habit Tracker</strong>
+            </div>
+
+            <div class="topbar-right">
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Chuyển dark light mode" aria-pressed="false">
+                    <span class="theme-option sun">
+                        <i data-lucide="sun"></i>
+                    </span>
+                    <span class="theme-option moon">
+                        <i data-lucide="moon"></i>
+                    </span>
+                </button>
+                <button class="icon-button notify-button" type="button" aria-label="Thông báo">
+                    <i data-lucide="bell"></i>
+                    <span></span>
+                </button>
+                <button class="user-menu" type="button">
+                    <span class="avatar">👨🏻</span>
+                    <span>Xin chào, User</span>
+                    <i data-lucide="chevron-down"></i>
+                </button>
+            </div>
+        </header>
+
+        <section class="hero-row">
+            <div>
+                <h1>Habit Tracker</h1>
+                <p>Xây dựng thói quen tốt mỗi ngày để trở thành phiên bản tốt hơn của bạn.</p>
+            </div>
+            <button class="add-button" type="button">
+                <i data-lucide="plus"></i>
+                <span>Thêm Habit</span>
+            </button>
+        </section>
+
+        <section class="stats-grid" id="statsGrid" aria-label="Thống kê habit"></section>
+
+        <section class="habit-panel">
+            <div class="panel-header">
+                <h2>Danh sách Habit</h2>
+                <div class="filters">
+                    <label class="search-field">
+                        <i data-lucide="search"></i>
+                        <input id="habitSearch" type="search" placeholder="Tìm kiếm habit..." aria-label="Tìm kiếm habit">
+                    </label>
+                    <label class="filter-select">
+                        <select id="habitFilter" aria-label="Lọc habit">
+                            <option value="all">Tất cả</option>
+                            <option value="complete">Hoàn thành</option>
+                            <option value="progress">Đang làm</option>
+                        </select>
+                        <i data-lucide="chevron-down"></i>
+                    </label>
+                </div>
+            </div>
+
+            <div class="habit-list" id="habitList" aria-live="polite"></div>
+
+            <footer class="panel-footer">
+                <span id="habitCount">Hiển thị 1 - 5 trong 5 habit</span>
+                <div class="pagination" aria-label="Phân trang">
+                    <button type="button" aria-label="Trang trước"><i data-lucide="chevron-left"></i></button>
+                    <button class="active" type="button" aria-current="page">1</button>
+                    <button type="button" aria-label="Trang sau"><i data-lucide="chevron-right"></i></button>
+                </div>
+            </footer>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="/LifeHub/app/static/JS/habit/list.js"></script>
+</body>
+</html>

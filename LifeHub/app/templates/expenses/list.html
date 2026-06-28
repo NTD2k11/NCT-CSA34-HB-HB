@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeHub - Expense</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/LifeHub/app/static/CSS/expenses/list.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <a class="brand" href="#">
+            <i data-lucide="leaf"></i>
+            <span>LifeHub</span>
+        </a>
+
+        <nav class="nav-menu" aria-label="Main navigation">
+            <a class="nav-item" href="/LifeHub/app/templates/dashboard.html"><i data-lucide="home"></i><span>Dashboard</span></a>
+            <a class="nav-item" href="#"><i data-lucide="utensils"></i><span>Meal</span></a>
+            <a class="nav-item" href="/LifeHub/app/templates/habit/list.html"><i data-lucide="circle-check"></i><span>Habit</span></a>
+            <a class="nav-item active" href="#"><i data-lucide="wallet-cards"></i><span>Expense</span></a>
+            <a class="nav-item" href="#"><i data-lucide="calendar-days"></i><span>Calendar</span></a>
+            <a class="nav-item" href="#"><i data-lucide="hand-coins"></i><span>Reports</span></a>
+            <a class="nav-item" href="#"><i data-lucide="send"></i><span>Goals</span></a>
+            <a class="nav-item" href="#"><i data-lucide="settings"></i><span>Settings</span></a>
+        </nav>
+
+        <section class="finance-card" aria-label="Finance tip">
+            <p>Quản lý tài chính thông minh, cuộc sống an yên hơn.</p>
+            <div class="plant-art" aria-hidden="true">
+                <span class="sparkle sparkle-one"></span>
+                <span class="sparkle sparkle-two"></span>
+                <span class="leaf leaf-one"></span>
+                <span class="leaf leaf-two"></span>
+                <span class="leaf leaf-three"></span>
+                <span class="pot"></span>
+            </div>
+        </section>
+    </aside>
+
+    <main class="expense-page">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-button" type="button" aria-label="Mở menu">
+                    <i data-lucide="menu"></i>
+                </button>
+                <strong>Expense</strong>
+            </div>
+
+            <div class="topbar-right">
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Chuyển dark light mode" aria-pressed="false">
+                    <span class="theme-option sun"><i data-lucide="sun"></i></span>
+                    <span class="theme-option moon"><i data-lucide="moon"></i></span>
+                </button>
+                <button class="icon-button notify-button" type="button" aria-label="Thông báo">
+                    <i data-lucide="bell"></i>
+                    <span>3</span>
+                </button>
+                <button class="user-menu" type="button">
+                    <span class="avatar">👨🏻</span>
+                    <span>Xin chào, User</span>
+                    <i data-lucide="chevron-down"></i>
+                </button>
+            </div>
+        </header>
+
+        <section class="hero-row">
+            <div>
+                <h1>Chi tiêu của tôi</h1>
+                <p>Theo dõi và quản lý chi tiêu hằng ngày</p>
+            </div>
+            <button class="add-button" type="button">
+                <i data-lucide="plus"></i>
+                <span>Thêm giao dịch</span>
+            </button>
+        </section>
+
+        <section class="summary-grid" id="summaryGrid" aria-label="Tổng quan chi tiêu"></section>
+
+        <section class="transaction-panel">
+            <div class="panel-tools">
+                <label class="search-field">
+                    <i data-lucide="search"></i>
+                    <input id="expenseSearch" type="search" placeholder="Tìm kiếm giao dịch..." aria-label="Tìm kiếm giao dịch">
+                </label>
+
+                <label class="select-field">
+                    <select id="monthFilter" aria-label="Lọc tháng">
+                        <option value="all">Tháng 6, 2025</option>
+                        <option value="20/06/2025">20/06/2025</option>
+                        <option value="19/06/2025">19/06/2025</option>
+                        <option value="18/06/2025">18/06/2025</option>
+                    </select>
+                    <i data-lucide="chevron-down"></i>
+                </label>
+
+                <label class="select-field">
+                    <select id="categoryFilter" aria-label="Lọc danh mục">
+                        <option value="all">Tất cả danh mục</option>
+                        <option value="Ăn uống">Ăn uống</option>
+                        <option value="Đi lại">Đi lại</option>
+                        <option value="Mua sắm">Mua sắm</option>
+                        <option value="Học tập">Học tập</option>
+                        <option value="Nhà ở">Nhà ở</option>
+                        <option value="Giải trí">Giải trí</option>
+                        <option value="Sức khỏe">Sức khỏe</option>
+                    </select>
+                    <i data-lucide="chevron-down"></i>
+                </label>
+
+                <label class="select-field">
+                    <select id="typeFilter" aria-label="Lọc loại">
+                        <option value="all">Tất cả loại</option>
+                        <option value="Chi tiêu">Chi tiêu</option>
+                        <option value="Thu nhập">Thu nhập</option>
+                    </select>
+                    <i data-lucide="chevron-down"></i>
+                </label>
+
+                <button class="export-button" type="button">
+                    <i data-lucide="download"></i>
+                    <span>Xuất báo cáo</span>
+                </button>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ngày</th>
+                            <th>Danh mục</th>
+                            <th>Mô tả</th>
+                            <th>Loại</th>
+                            <th>Số tiền</th>
+                            <th>Phương thức</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionTable"></tbody>
+                </table>
+            </div>
+
+            <footer class="panel-footer">
+                <span id="transactionCount">Hiển thị 1 - 7 trong 24 giao dịch</span>
+                <div class="pagination" aria-label="Phân trang">
+                    <button type="button" aria-label="Trang trước"><i data-lucide="chevron-left"></i></button>
+                    <button class="active" type="button" aria-current="page">1</button>
+                    <button type="button">2</button>
+                    <button type="button">3</button>
+                    <button type="button" aria-label="Trang sau"><i data-lucide="chevron-right"></i></button>
+                </div>
+            </footer>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="/LifeHub/app/static/JS/expenses/list.js"></script>
+</body>
+</html>

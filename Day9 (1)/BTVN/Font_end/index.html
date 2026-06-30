@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sach san pham - Day 9</title>
+    <link rel="stylesheet" href="index.css">
+
+</head>
+<body>
+    <main class="page">
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-icon">P</div>
+                <div>
+                    <h1>Bảng thông tin sản phẩm</h1>
+                    <p>Trình bày dữ liệu từ file product.py trong thư mục Day9/BTVN.</p>
+                </div>
+            </div>
+
+            <label class="search" aria-label="Tim san pham">
+                <input id="searchInput" type="search" placeholder="Tim theo ten, ma, loai san pham...">
+            </label>
+        </header>
+
+        <section class="summary" aria-label="Tong quan du lieu">
+            <article class="stat">
+                <span>Tong san pham</span>
+                <strong id="totalProducts">0</strong>
+            </article>
+            <article class="stat">
+                <span>Tong so luong</span>
+                <strong id="totalQuantity">0</strong>
+            </article>
+            <article class="stat">
+                <span>Gia cao nhat</span>
+                <strong id="highestPrice">0 d</strong>
+            </article>
+            <article class="stat">
+                <span>Tong gia tri kho</span>
+                <strong id="stockValue">0 d</strong>
+            </article>
+        </section>
+
+        <section class="content">
+            <div class="menu" id="productGrid" aria-label="Danh sach san pham"></div>
+
+            <aside class="panel">
+                <h2>Tom tat nhanh</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Noi dung</th>
+                            <th>Gia tri</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summaryTable"></tbody>
+                </table>
+            </aside>
+        </section>
+    </main>
+
+    <script src="index.js">
+        /*
+            Hay thay mang products ben duoi bang du lieu that trong Day9/BTVN/product.py
+            neu ten truong trong Python khac nhau. Trang da ho tro cac khoa pho bien:
+            id/ma, name/ten, category/loai, price/gia, quantity/so_luong.
+        */
+
+    </script>
+</body>
+</html>

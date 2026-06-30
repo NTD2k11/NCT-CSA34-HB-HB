@@ -1,64 +1,24 @@
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
-import {
-  getDatabase,
-  ref,
-  set
-} from "https://www.gstatic.com/firebasejs/10.5.2/firebase-database.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAXfosrg54KjZFuq-RJKBMECeyI-eBZd_U",
-  authDomain: "spck-hb-hb.firebaseapp.com",
-  databaseURL: "https://spck-hb-hb-default-rtdb.firebaseio.com",
-  projectId: "spck-hb-hb",
-  storageBucket: "spck-hb-hb.firebasestorage.app",
-  messagingSenderId: "246875656236",
-  appId: "1:246875656236:web:c0e09630b7a33e96444189",
-  measurementId: "G-MXJ4N1T1W6"
-};
-
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-const db = getDatabase(app);
-
-
-
 const signupForm = document.getElementById("signupForm");
 
 if (signupForm) {
-
-    const firstnameInput = document.getElementById("firstname");
-    const lastnameInput = document.getElementById("lastname");
-    const usernameInput = document.getElementById("username");
-    const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
-    const confirmPasswordInput = document.getElementById("confirmPassword");
 
     signupForm.addEventListener("submit", async (e) => {
 
         e.preventDefault();
 
-        const firstname = firstnameInput.value.trim();
-        const lastname = lastnameInput.value.trim();
-        const username = usernameInput.value.trim();
-        const email = emailInput.value.trim();
-        const password = passwordInput.value;
-        const confirmPassword = confirmPasswordInput.value;
+        const firstname = document.getElementById("firstname").value.trim();
+        const lastname = document.getElementById("lastname").value.trim();
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
 
         if (
             firstname === "" ||
             lastname === "" ||
             username === "" ||
             email === "" ||
-            password.length < 6
+            password === ""
         ) {
             alert("Vui lòng nhập đầy đủ thông tin!");
             return;
@@ -71,46 +31,53 @@ if (signupForm) {
 
         try {
 
-            const userCredential =
-                await createUserWithEmailAndPassword(
-                    auth,
+            const response = await fetch("http://127.0.0.1:5000/signup", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    firstname,
+                    lastname,
+                    username,
                     email,
                     password
-                );
 
-            const user = userCredential.user;
-
-            await updateProfile(user, {
-                displayName: username
-            });
-
-            await set(ref(db, "users/" + user.uid), {
-
-                uid: user.uid,
-
-                username: username,
-
-                email: email,
-
-                created_at: new Date().toISOString()
+                })
 
             });
 
-            alert("Đăng ký thành công!");
+            const result = await response.json();
 
-            window.location.href = "/LifeHub/app/templates/dashboard.html";
+            console.log(response.status);
+            console.log(result);
+            if (response.ok) {
 
-        }
-        catch (error) {
+                alert(result.message);
 
-            alert(error.message);
+                window.location.href = "/LifeHub/app/templates/dashboard.html";
+
+            } else {
+
+                alert(result.message);
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Không thể kết nối tới server.");
 
         }
 
     });
 
 }
-
 
 
 
@@ -121,18 +88,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const lightBtn = document.getElementById("lightBtn");
     const darkBtn = document.getElementById("darkBtn");
 
-    if (!lightBtn || !darkBtn) {
-        return;
-    }
+    if (!lightBtn || !darkBtn) return;
 
     darkBtn.addEventListener("click", () => {
 
         body.classList.add("dark");
 
-        darkBtn.classList.add("active");
-        lightBtn.classList.remove("active");
-
-        localStorage.setItem("theme","dark");
+        localStorage.setItem("theme", "dark");
 
     });
 
@@ -140,40 +102,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         body.classList.remove("dark");
 
-        lightBtn.classList.add("active");
-        darkBtn.classList.remove("active");
-
-        localStorage.setItem("theme","light");
+        localStorage.setItem("theme", "light");
 
     });
 
 });
-
-
-
-
-
-
-
-
-onAuthStateChanged(auth, (user) => {
-
-    if (user) {
-
-        if (
-            window.location.pathname.includes("login.html") ||
-            window.location.pathname.includes("signup.html")
-        ) {
-
-            window.location.href = "/LifeHub/app/templates/dashboard.html";
-
-        }
-
-    }
-
-});
-
-
-
-
-

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LifeHub | Settings</title>
+
+    <link rel="stylesheet" href="/LifeHub/app/static/CSS/setting/setting.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ================= Sidebar ================= -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <i class="fa-solid fa-leaf"></i>
+
+                <span>LifeHub</span>
+
+            </div>
+
+            <ul class="menu">
+
+                <li>
+                    <a href="../dashboard.html">
+                        <i class="fa-solid fa-house"></i>
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../meal/list.html">
+                        <i class="fa-solid fa-utensils"></i>
+                        Meal
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../habit/list.html">
+                        <i class="fa-solid fa-check"></i>
+                        Habit
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../expenses/list.html">
+                        <i class="fa-solid fa-wallet"></i>
+                        Expense
+                    </a>
+                </li>
+
+                <li class="active">
+                    <a href="#">
+                        <i class="fa-solid fa-gear"></i>
+                        Settings
+                    </a>
+                </li>
+
+            </ul>
+
+            <div class="sidebar-card">
+
+                <h3>
+                    Quản lý tài chính thông minh
+                </h3>
+
+                <p>
+
+                    Cuộc sống cân bằng bắt đầu từ những thói quen nhỏ mỗi ngày.
+
+                </p>
+
+            </div>
+
+        </aside>
+
+        <!-- ================= Main ================= -->
+
+        <main class="main">
+
+            <!-- ================= Topbar ================= -->
+
+            <header class="topbar">
+
+                <div class="page-title">
+
+                    <h2>
+
+                        <i class="fa-solid fa-gear"></i>
+
+                        Settings
+
+                    </h2>
+
+                </div>
+
+                <div class="top-right">
+
+                    <!-- Dark Light -->
+
+                    <div class="theme-toggle">
+
+                        <span id="lightBtn" class="active">
+                            ☀️
+                        </span>
+
+                        <span id="darkBtn">
+                            🌙
+                        </span>
+
+                    </div>
+
+                    <div class="notification">
+
+                        <i class="fa-regular fa-bell"></i>
+
+                        <span class="badge">3</span>
+
+                    </div>
+
+                    <div class="user">
+
+                        <img id="topAvatar" src="../../static/images/default-avatar.png">
+
+                        <span id="topUsername">
+                            Xin chào
+                        </span>
+
+                        <i class="fa-solid fa-chevron-down"></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- ================= Content ================= -->
+
+            <div class="content">
+
+                <!-- LEFT -->
+
+                <div class="left-content">
+
+                    <!-- ================= PROFILE ================= -->
+
+                    <section class="card">
+
+                        <div class="card-title">
+
+                            <i class="fa-regular fa-user"></i>
+
+                            <div>
+
+                                <h2>Hồ sơ cá nhân</h2>
+
+                                <p>Cập nhật thông tin tài khoản.</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="profile">
+
+                            <div class="avatar-box">
+
+                                <img id="avatarImg" src="../../static/images/default-avatar.png" alt="Avatar">
+
+                                <button id="changeAvatarBtn" type="button">
+
+                                    <i class="fa-solid fa-camera"></i>
+                                    Đổi ảnh
+                                </button>
+
+                            </div>
+
+                            <div class="profile-form">
+
+                                <div class="row">
+
+                                    <div class="input-group">
+
+                                        <label>Họ và tên</label>
+
+                                        <input id="fullname" type="text" placeholder="Nhập họ và tên">
+
+                                    </div>
+
+                                    <div class="input-group">
+
+                                        <label>Username</label>
+
+                                        <input id="username" type="text" placeholder="Username">
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="input-group full">
+
+                                        <label>Email</label>
+
+                                        <input id="email" type="email" placeholder="Email" readonly>
+
+                                    </div>
+
+                                </div>
+                                <button class="save-btn" id="saveBtn" type="button">>Cập nhật</button>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                    <!-- Appearance sẽ viết ở phần 2 -->
+                    <!-- ================= APPEARANCE ================= -->
+
+                    <section class="card">
+
+                        <div class="card-title">
+
+                            <i class="fa-solid fa-palette"></i>
+
+                            <div>
+
+                                <h2>Giao diện</h2>
+
+                                <p>Tùy chỉnh giao diện ứng dụng.</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="setting-item">
+
+                            <div>
+
+                                <h3>Chế độ màu</h3>
+
+                                <p>Chọn giao diện sáng hoặc tối.</p>
+
+                            </div>
+
+                            <div class="theme-toggle-large">
+                                <button id="lightMode">☀️ Sáng</button>
+                                <button id="darkMode">🌙 Tối</button>
+
+                            </div>
+
+                        </div>
+
+                        <div class="setting-item">
+
+                            <div>
+
+                                <h3>Ngôn ngữ</h3>
+
+                                <p>Ngôn ngữ hiển thị.</p>
+
+                            </div>
+
+                            <select>
+
+                                <option>Tiếng Việt</option>
+
+                                <option>English</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="setting-item">
+
+                            <div>
+
+                                <h3>Kích thước chữ</h3>
+
+                            </div>
+
+                            <div class="font-size">
+
+                                <button>A-</button>
+
+                                <button class="active">A</button>
+
+                                <button>A+</button>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                    <!-- ================= NOTIFICATION ================= -->
+
+                    <section class="card">
+
+                        <div class="card-title">
+
+                            <i class="fa-regular fa-bell"></i>
+
+                            <div>
+
+                                <h2>Thông báo</h2>
+
+                                <p>Quản lý thông báo của ứng dụng.</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="setting-item">
+
+                            <span>Thông báo Email</span>
+
+                            <label class="switch">
+
+                                <input type="checkbox" checked>
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+                        <div class="setting-item">
+
+                            <span>Nhắc Habit hằng ngày</span>
+
+                            <label class="switch">
+
+                                <input type="checkbox" checked>
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+                        <div class="setting-item">
+
+                            <span>Nhắc Meal</span>
+
+                            <label class="switch">
+
+                                <input type="checkbox">
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+                    </section>
+
+                    <!-- ================= SECURITY ================= -->
+
+                    <section class="card">
+
+                        <div class="card-title">
+
+                            <i class="fa-solid fa-shield-halved"></i>
+
+                            <div>
+
+                                <h2>Bảo mật</h2>
+
+                                <p>Thiết lập tài khoản.</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="security-list">
+
+                            <div class="security-item">
+
+                                <span>Đổi mật khẩu</span>
+
+                                <i class="fa-solid fa-chevron-right"></i>
+
+                            </div>
+
+                            <div class="security-item">
+
+                                <span>Xác minh Email</span>
+
+                                <span class="verified">
+
+                                    Đã xác minh
+
+                                </span>
+
+                            </div>
+
+                            <div class="security-item">
+
+                                <span>Đăng xuất khỏi thiết bị khác</span>
+
+                                <i class="fa-solid fa-chevron-right"></i>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+                <!-- ================= RIGHT ================= -->
+
+                <div class="right-content">
+
+                    <!-- ACCOUNT -->
+
+                    <section class="card small-card">
+
+                        <h2>Tài khoản của bạn</h2>
+
+                        <p>Thông tin tổng quan</p>
+
+                        <div class="info-row">
+
+                            <span>Ngày tạo</span>
+
+                            <strong id="createdAt"></strong>
+
+                        </div>
+
+                        <div class="info-row">
+
+                            <span>Habit</span>
+
+                            <strong id="habitCount">0</strong>
+
+                        </div>
+
+                        <div class="info-row">
+
+                            <span>Meal</span>
+
+                            <strong id="mealCount">0</strong>
+
+                        </div>
+
+                        <div class="info-row">
+
+                            <span>Expense</span>
+
+                            <strong id="expenseCount">0</strong>
+
+                        </div>
+
+                    </section>
+
+                    <!-- ABOUT -->
+
+                    <section class="card small-card">
+
+                        <h2>Về LifeHub</h2>
+
+                        <p>
+
+                            LifeHub giúp bạn quản lý bữa ăn,
+
+                            theo dõi thói quen,
+
+                            quản lý chi tiêu
+
+                            và xây dựng cuộc sống lành mạnh.
+
+                        </p>
+
+                        <h3>
+
+                            Phiên bản 1.0.0
+
+                        </h3>
+
+                    </section>
+
+                    <!-- LOGOUT -->
+
+                    <section class="card small-card">
+
+                        <h2 style="color:#E76F51;">
+
+                            Đăng xuất
+
+                        </h2>
+
+                        <p>
+
+                            Đăng xuất khỏi tài khoản hiện tại.
+
+                        </p>
+
+                        <button class="logout-btn">Đăng xuất</button>
+
+                    </section>
+
+                    <!-- HELP -->
+
+                    <section class="card small-card">
+
+                        <h2>
+
+                            Trợ giúp
+
+                        </h2>
+
+                        <p>
+
+                            Liên hệ nhóm phát triển nếu gặp sự cố.
+
+                        </p>
+
+                        <button class="help-btn">
+
+                            <i class="fa-solid fa-headset"></i>
+
+                            Liên hệ hỗ trợ
+
+                        </button>
+
+                    </section>
+
+                </div>
+
+            </div>
+
+        </main>
+
+        <script type="module" src="../../static/JS/setting/setting.js"></script>
+
+</body>
+
+</html>

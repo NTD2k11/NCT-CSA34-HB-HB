@@ -10,24 +10,39 @@ fetch("http://127.0.0.1:5000/")
     
 });
 
-let name  = document.querySelector("#name")
-let email  = document.querySelector("#email") 
-let phone  = document.querySelector("#phone") 
-let Favorite  = document.querySelector("#Favorite") 
 
-fetch("http://127.0.0.1:5000/get_person_information")
-.then(res => res.json())
-.then(data => {
-    console.log(data);
-    name.innerText = data.name;
-    email.innerText = data.gmail;
-    phone.innerText = (data.phone);
-    Favorite.innerText = data.favorite;
-})
 
-.catch(err =>{
-    console.log(err);
-    
+let createPersonBtn = document.querySelector(".btn");
+createPersonBtn.addEventListener("click", () => {
+  fetch("http://127.0.0.1:5000/create_person", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: "Danh Phuong dzai",
+      age: 20,
+      address: "Ha Noi",
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
+let ft_name = document.querySelector(".ft_name_inp")
+let lt_name = document.querySelector(".lt_name_inp")
+let email_inp = document.querySelector(".email_inp")
+let phone_inp = document.querySelector(".phone_inp")
 
+fetch("http://127.0.0.1:5000/getdata")
+
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+     
+});

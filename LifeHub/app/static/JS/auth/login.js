@@ -1,110 +1,62 @@
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
-import {
-  getDatabase,
-  ref,
-  set
-} from "https://www.gstatic.com/firebasejs/10.5.2/firebase-database.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAXfosrg54KjZFuq-RJKBMECeyI-eBZd_U",
-  authDomain: "spck-hb-hb.firebaseapp.com",
-  databaseURL: "https://spck-hb-hb-default-rtdb.firebaseio.com",
-  projectId: "spck-hb-hb",
-  storageBucket: "spck-hb-hb.firebasestorage.app",
-  messagingSenderId: "246875656236",
-  appId: "1:246875656236:web:c0e09630b7a33e96444189",
-  measurementId: "G-MXJ4N1T1W6"
-};
-
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-const db = getDatabase(app);
-
-
-
-
-
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
-
-    const loginInput = document.getElementById("login");
-    const passwordInput = document.getElementById("password");
 
     loginForm.addEventListener("submit", async (e) => {
 
         e.preventDefault();
 
-        let login = loginInput.value.trim();
-        const password = passwordInput.value;
+        const username = document.getElementById("login").value.trim();
+        const password = document.getElementById("password").value;
 
-        if (login === "" || password === "") {
+        if (!username || !password) {
             alert("Vui lòng nhập đầy đủ thông tin!");
             return;
         }
 
         try {
 
-            // Nếu người dùng nhập username
-            if (!login.includes("@")) {
+            const response = await fetch("http://127.0.0.1:5000/login", {
 
-                const snapshot = await get(ref(db, "users"));
+                method: "POST",
 
-                if (!snapshot.exists()) {
-                    throw new Error("Không tìm thấy người dùng!");
-                }
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-                let foundEmail = null;
+                body: JSON.stringify({
+                    username,
+                    password
+                })
 
-                snapshot.forEach((child) => {
+            });
 
-                    if (child.val().username === login) {
-                        foundEmail = child.val().email;
-                    }
+            const result = await response.json();
 
-                });
+            if (response.ok) {
 
-                if (!foundEmail) {
-                    throw new Error("Username không tồn tại!");
-                }
+                localStorage.setItem("uid", result.uid);
+                localStorage.setItem("username", result.username);
+                localStorage.setItem("email", result.email);
 
-                login = foundEmail;
+                window.location.href = "../dashboard.html";
+
+            } else {
+
+                alert(result.message);
+
             }
 
-            const userCredential =
-                await signInWithEmailAndPassword(
-                    auth,
-                    login,
-                    password
-                );
+        } catch (error) {
 
-            alert("Đăng nhập thành công!");
-
-            window.location.href =
-                "/LifeHub/app/templates/dashboard.html";
-
-        }
-
-        catch (error) {
-
-            alert(error.message);
+            console.error(error);
+            alert("Không thể kết nối đến máy chủ.");
 
         }
 
     });
 
 }
-
-
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -144,19 +96,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-onAuthStateChanged(auth, (user) => {
-
-    if (user) {
-
-        if (
-            window.location.pathname.includes("login.html") ||
-            window.location.pathname.includes("signup.html")
-        ) {
-
-            window.location.href = "/LifeHub/app/templates/dashboard.html";
-
-        }
-
-    }
-
-});

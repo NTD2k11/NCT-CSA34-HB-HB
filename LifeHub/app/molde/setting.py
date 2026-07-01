@@ -51,19 +51,17 @@ def get_setting(uid):
 
             }),404
 
-        cursor.execute("SELECT COUNT(*) FROM Habit WHERE uid=?", (uid,))
-        habit = cursor.fetchone()[0]
+        
+        habit = 0
 
-        cursor.execute("SELECT COUNT(*) FROM Meal WHERE uid=?", (uid,))
-        meal = cursor.fetchone()[0]
+        
+        meal = 0
 
-        cursor.execute("SELECT COUNT(*) FROM Expense WHERE uid=?", (uid,))
-        expense = cursor.fetchone()[0]
+        expense = 0
 
         conn.close()
 
         return jsonify({
-
             "success": True,
 
             "uid": user["uid"],
@@ -85,13 +83,13 @@ def get_setting(uid):
             "meal": meal,
 
             "expense": expense
-
         })
 
     except Exception as e:
 
+        print("========== ERROR ==========")
+        print(type(e).__name__)
         print(e)
-
         return jsonify({
 
             "success":False,
@@ -215,8 +213,12 @@ def upload_avatar():
 
         file.save(save_path)
 
-        avatar_path=f"/static/uploads/avatar/{filename}"
+        avatar_path=f"/LifeHub/app/static/uploads/avatar/{filename}"
+  
 
+        # print("======================")
+        # print(DB_PATH)
+        # print(os.path.exists(DB_PATH))
         conn=sqlite3.connect(DB_PATH)
 
         cursor=conn.cursor()
@@ -255,8 +257,9 @@ def upload_avatar():
 
     except Exception as e:
 
+        print("========== ERROR ==========")
+        print(type(e).__name__)
         print(e)
-
         return jsonify({
 
             "success":False,
@@ -370,6 +373,8 @@ def change_password():
 
     except Exception as e:
 
+        print("========== ERROR ==========")
+        print(type(e).__name__)
         print(e)
 
         return jsonify({

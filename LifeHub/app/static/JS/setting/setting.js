@@ -24,6 +24,8 @@ async function loadUser() {
         );
 
         const result = await response.json();
+        console.log(result);
+        console.log(result.avatar);
 
         if (!result.success) {
 
@@ -340,8 +342,7 @@ document
         LOGOUT
 ===================================== */
 
-const logout =
-    document.getElementById("logoutBtn");
+const logout = document.querySelector(".logout-btn");
 
 logout.onclick = function () {
 
@@ -361,7 +362,7 @@ logout.onclick = function () {
         HELP
 ===================================== */
 
-document.getElementById("helpBtn").onclick =
+document.querySelector(".help-btn").onclick =
 function () {
 
     alert("support@lifehub.com");

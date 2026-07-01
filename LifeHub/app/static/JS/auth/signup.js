@@ -5,6 +5,7 @@ if (signupForm) {
     signupForm.addEventListener("submit", async (e) => {
 
         e.preventDefault();
+        console.log("Submit được gọi");
 
         const firstname = document.getElementById("firstname").value.trim();
         const lastname = document.getElementById("lastname").value.trim();
@@ -59,7 +60,7 @@ if (signupForm) {
 
                 alert(result.message);
 
-                window.location.href = "/LifeHub/app/templates/dashboard.html";
+                window.location.href = "../login.html";
 
             } else {
 

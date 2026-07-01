@@ -10,7 +10,7 @@ CORS(app)
 
 app.register_blueprint(signup_bp)
 app.register_blueprint(login_bp)
-app.register_blueprint(setting_bp)
+app.register_blueprint(setting_bp) 
 
 if __name__ == "__main__":
     app.run(debug=True)

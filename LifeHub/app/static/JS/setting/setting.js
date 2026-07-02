@@ -344,14 +344,18 @@ document
 
 const logout = document.querySelector(".logout-btn");
 
-logout.onclick = function () {
+if (logout) {
 
-    if (confirm("Bạn có muốn đăng xuất không?")) {
+    logout.onclick = function () {
 
-        localStorage.removeItem("uid");
+        if (confirm("Bạn có muốn đăng xuất không?")) {
 
-        window.location.href =
-            "../auth/login.html";
+            localStorage.removeItem("uid");
+            localStorage.removeItem("username");
+            localStorage.removeItem("email");
+
+            window.location.href = "../auth/login.html";
+        }
 
     }
 

@@ -60,7 +60,7 @@ if (signupForm) {
 
                 alert(result.message);
 
-                window.location.href = "../login.html";
+                window.location.href = "./login.html";
 
             } else {
 

@@ -1,34 +1,85 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const summaries = [
-        { title: "Tổng chi tiêu tháng 6", value: "5.400.000đ", note: "↓ 12% so với tháng trước", icon: "wallet", color: "#53b76c", square: true, positive: true },
-        { title: "Ngân sách tháng", value: "8.000.000đ", note: "Cập nhật: 01/06/2025", icon: "$", color: "#58a6dc" },
-        { title: "Đã sử dụng", value: "67%", note: "5.400.000đ / 8.000.000đ", icon: "◔", color: "#f4a40a", progress: true },
-        { title: "Còn lại", value: "2.600.000đ", note: "", icon: "▣", color: "#8b5cf6", square: true }
-    ];
 
-    const transactions = [
-        { date: "20/06/2025", time: "12:30", category: "Ăn uống", icon: "🍴", color: "#f59e0b", desc: "Bữa trưa với bạn bè", type: "Chi tiêu", amount: "250.000đ", method: "💵 Tiền mặt" },
-        { date: "20/06/2025", time: "08:15", category: "Đi lại", icon: "🚗", color: "#58a6dc", desc: "Xăng xe", type: "Chi tiêu", amount: "150.000đ", method: "💳 Thẻ ATM" },
-        { date: "19/06/2025", time: "19:45", category: "Mua sắm", icon: "🛒", color: "#61bd50", desc: "Mua quần áo", type: "Chi tiêu", amount: "1.250.000đ", method: "💳 Thẻ tín dụng" },
-        { date: "19/06/2025", time: "07:30", category: "Học tập", icon: "🎓", color: "#8b5cf6", desc: "Sách tham khảo", type: "Chi tiêu", amount: "300.000đ", method: "💵 Tiền mặt" },
-        { date: "18/06/2025", time: "18:20", category: "Nhà ở", icon: "🏠", color: "#ef5b78", desc: "Tiền điện", type: "Chi tiêu", amount: "850.000đ", method: "🏦 Chuyển khoản" },
-        { date: "18/06/2025", time: "12:10", category: "Giải trí", icon: "🌟", color: "#f7bf3d", desc: "Xem phim", type: "Chi tiêu", amount: "120.000đ", method: "💵 Tiền mặt" },
-        { date: "17/06/2025", time: "09:00", category: "Sức khỏe", icon: "✚", color: "#2bb7a1", desc: "Mua thuốc", type: "Chi tiêu", amount: "200.000đ", method: "💳 Thẻ ATM" }
-    ];
+    loadExpense();
 
-    const state = {
-        query: "",
-        date: "all",
-        category: "all",
-        type: "all"
-    };
-
-    renderSummaries(summaries);
-    renderTransactions(transactions, state);
-    bindFilters(transactions, state);
-    setupThemeToggle();
-    refreshIcons();
 });
+
+async function loadExpense(){
+
+    const summaries = [
+        {
+            title: "Tổng chi tiêu tháng",
+            value: "0đ",
+            note: "",
+            icon: "wallet",
+            color: "#53b76c",
+            square: true,
+            positive: true
+        },
+        {
+            title: "Ngân sách tháng",
+            value: "0đ",
+            note: "",
+            icon: "$",
+            color: "#58a6dc"
+        },
+        {
+            title: "Đã sử dụng",
+            value: "0%",
+            note: "",
+            icon: "◔",
+            color: "#f4a40a",
+            progress: true
+        },
+        {
+            title: "Còn lại",
+            value: "0đ",
+            note: "",
+            icon: "▣",
+            color: "#8b5cf6",
+            square: true
+        }
+    ];
+
+    const uid = localStorage.getItem("uid");
+
+    try{
+
+        const response = await fetch(
+            `http://127.0.0.1:5000/expense/list/${uid}`
+        );
+
+        const result = await response.json();
+
+        const transactions = result.expenses;
+
+        const state = {
+
+            query:"",
+            date:"all",
+            category:"all",
+            type:"all"
+
+        };
+
+        renderSummaries(summaries);
+
+        renderTransactions(transactions,state);
+
+        bindFilters(transactions,state);
+
+        setupThemeToggle();
+
+        refreshIcons();
+
+    }
+    catch(err){
+
+        console.log(err);
+
+    }
+
+}
 
 function renderSummaries(summaries) {
     const grid = document.getElementById("summaryGrid");
@@ -88,7 +139,7 @@ function renderTransactions(transactions, state) {
     }
 
     const filtered = transactions.filter(item => {
-        const haystack = `${item.date} ${item.category} ${item.desc} ${item.method}`.toLowerCase();
+        const haystack = `${item.date} ${item.category} ${item.title} ${item.method}`.toLowerCase();
         const matchesQuery = haystack.includes(state.query);
         const matchesDate = state.date === "all" || item.date === state.date;
         const matchesCategory = state.category === "all" || item.category === state.category;
@@ -112,16 +163,16 @@ function renderTransactions(transactions, state) {
                         <span>${item.category}</span>
                     </div>
                 </td>
-                <td>${item.desc}</td>
+                <td>${item.title}</td>
                 <td><span class="type-badge">${item.type}</span></td>
-                <td><span class="amount">${item.amount}</span></td>
+                <td><span class="amount">${Number(item.amount).toLocaleString("vi-VN")+"đ"}</span></td>
                 <td><span class="method-cell">${item.method}</span></td>
                 <td>
                     <div class="row-actions">
-                        <button class="action-button" type="button" aria-label="Sửa ${item.desc}">
+                        <button class="action-button" onclick="editExpense(${item.expense_id})">
                             <i data-lucide="pencil"></i>
                         </button>
-                        <button class="action-button delete" type="button" aria-label="Xóa ${item.desc}">
+                        <button class="action-button delete" onclick="deleteExpense(${item.expense_id})">
                             <i data-lucide="trash-2"></i>
                         </button>
                     </div>
@@ -159,3 +210,119 @@ function refreshIcons() {
         window.lucide.createIcons();
     }
 }
+
+document.querySelector(".user-menu").addEventListener("click", () => {
+    window.location.href = "/LifeHub/app/templates/setting/setting.html"
+})
+
+
+/* =====================================
+        DELETE EXPENSE
+===================================== */
+
+async function deleteExpense(id){
+
+    const ok = confirm("Bạn có chắc muốn xóa giao dịch này?");
+
+    if(!ok) return;
+
+    try{
+
+        const response = await fetch(
+
+            `http://127.0.0.1:5000/expense/delete/${id}`,
+
+            {
+
+                method:"DELETE"
+
+            }
+
+        );
+
+        const result = await response.json();
+
+        alert(result.message);
+
+        if(result.success){
+
+            loadExpense();
+
+        }
+
+    }
+
+    catch(err){
+
+        console.log(err);
+
+    }
+
+}
+
+function editExpense(id){
+
+    window.location.href =
+        `edit.html?id=${id}`;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const uid = localStorage.getItem("uid");
+
+async function loadAvatar() {
+
+    if (!uid) return;
+
+    try {
+
+        const response = await fetch(`http://127.0.0.1:5000/user/${uid}`);
+
+        const result = await response.json();
+
+        if (!response.ok) {
+
+            console.log(result.message);
+            return;
+
+        }
+
+        const avatar = result.avatar || "http://127.0.0.1:5000/static/IMG/avatar.png";
+
+        const topAvatar = document.getElementById("topAvatar");
+
+        if (topAvatar) topAvatar.src = avatar;
+
+    }
+
+    catch (err) {
+
+        console.error(err);
+
+    }
+
+}
+
+loadAvatar();

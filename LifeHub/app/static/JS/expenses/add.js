@@ -221,31 +221,77 @@ uploadBox.addEventListener("drop",(e)=>{
 
 const form=document.querySelector(".expense-form");
 
-form.addEventListener("submit",(e)=>{
+form.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
-    if(title.value.trim()===""){
+    const uid = localStorage.getItem("uid");
 
-        alert("Vui lòng nhập mô tả.");
+    if (!uid) {
 
-        title.focus();
-
-        return;
-
-    }
-
-    if(amount.value===""){
-
-        alert("Vui lòng nhập số tiền.");
-
-        amount.focus();
+        alert("Bạn chưa đăng nhập.");
 
         return;
 
     }
+    const expense = {
+        uid: localStorage.getItem("uid"),
+        amount: Number(amount.value),
+        category: category.value,
+        title: title.value,        
+        method: method.value,      
+        note: note.value,
+        expense_date: dateInput.value
+    };
 
-    alert("Thêm giao dịch thành công!");
+    console.log(expense);
+    try {
+
+        const response = await fetch(
+
+            "http://127.0.0.1:5000/expense/add",
+
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+
+                body: JSON.stringify(expense)
+
+            }
+
+        );
+
+        const result = await response.json();
+
+        if(result.success){
+
+            alert(result.message);
+
+            window.location.href="list.html";
+
+        }
+
+        else{
+
+            alert(result.message);
+
+        }
+
+    }
+
+    catch(err){
+
+        console.log(err);
+
+        alert("Không thể kết nối đến server.");
+
+    }
 
 });
 
@@ -320,3 +366,42 @@ document.querySelectorAll(".card,.preview-card,.tips-card")
     });
 
 });
+
+
+
+const uid = localStorage.getItem("uid");
+
+async function loadAvatar() {
+
+    if (!uid) return;
+
+    try {
+
+        const response = await fetch(`http://127.0.0.1:5000/user/${uid}`);
+
+        const result = await response.json();
+
+        if (!response.ok) {
+
+            console.log(result.message);
+            return;
+
+        }
+
+        const avatar = result.avatar || "http://127.0.0.1:5000/static/IMG/avatar.png";
+
+        const topAvatar = document.getElementById("topAvatar");
+
+        if (topAvatar) topAvatar.src = avatar;
+
+    }
+
+    catch (err) {
+
+        console.error(err);
+
+    }
+
+}
+
+loadAvatar();

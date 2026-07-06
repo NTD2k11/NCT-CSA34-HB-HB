@@ -169,3 +169,80 @@ function refreshIcons() {
         window.lucide.createIcons();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const uid = localStorage.getItem("uid");
+
+async function loadAvatar() {
+
+    if (!uid) return;
+
+    try {
+
+        const response = await fetch(`http://127.0.0.1:5000/user/${uid}`);
+
+        const result = await response.json();
+
+        if (!response.ok) {
+
+            console.log(result.message);
+            return;
+
+        }
+
+        const avatar = result.avatar || "http://127.0.0.1:5000/static/IMG/avatar.png";
+
+        const topAvatar = document.getElementById("topAvatar");
+
+        if (topAvatar) topAvatar.src = avatar;
+
+    }
+
+    catch (err) {
+
+        console.error(err);
+
+    }
+
+}
+
+loadAvatar();

@@ -273,7 +273,7 @@ form.addEventListener("submit", async (e) => {
 
             alert(result.message);
 
-            window.location.href="list.html";
+            window.location.href="/LifeHub/app/templates/expenses/list.html";
 
         }
 

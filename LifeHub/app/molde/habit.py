@@ -2,15 +2,14 @@ from flask import Blueprint, request, jsonify
 import sqlite3
 import traceback
 
-
-expenses_bp = Blueprint("expenses", __name__)
+habit_bp = Blueprint("habit", __name__)
 
 DB_PATH = r"D:\NCT-CSA34-HB-HB\LifeHub\database\LifeHub.db"
 
 
 
 
-@expenses_bp.route("/expense/list/<int:uid>", methods=["GET"])
+@habit_bp.route("/expense/list/<int:uid>", methods=["GET"])
 def get_expense_list(uid):
 
     try:
@@ -38,11 +37,11 @@ def get_expense_list(uid):
 
         conn.close()
 
-        expenses = []
+        habit = []
 
         for row in rows:
 
-            expenses.append({
+            habit.append({
 
                 "expense_id": row["expense_id"],
 
@@ -75,7 +74,7 @@ def get_expense_list(uid):
 
             "success": True,
 
-            "expenses": expenses
+            "habit": habit
 
         })
 

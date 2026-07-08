@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 import os
 
+from app.molde.habit import habit_bp
 from app.molde.expenses import expenses_bp
 from app.molde.setting import setting_bp
 from app.molde.signup import signup_bp
@@ -17,6 +18,7 @@ app = Flask(
 
 CORS(app)
 
+app.register_blueprint(habit_bp)
 app.register_blueprint(expenses_bp)
 app.register_blueprint(setting_bp)
 app.register_blueprint(signup_bp)

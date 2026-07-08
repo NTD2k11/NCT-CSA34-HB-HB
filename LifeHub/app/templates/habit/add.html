@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LifeHub - Thêm thói quen</title>
+
+    <link rel="stylesheet" href="/LifeHub/app/static/CSS/habit/add.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="sidebar">
+
+            <div>
+
+                <div class="logo">
+
+                    <i class="fa-solid fa-leaf"></i>
+
+                    <h1>LifeHub</h1>
+
+                </div>
+
+                <nav>
+
+                    <ul>
+
+                        <li>
+
+                            <a href="../dashboard.html">
+
+                                <i class="fa-solid fa-house"></i>
+
+                                Dashboard
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="../meal/list.html">
+
+                                <i class="fa-solid fa-utensils"></i>
+
+                                Meal
+
+                            </a>
+
+                        </li>
+
+                        <li class="active">
+
+                            <a href="list.html">
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                Habit
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="../expenses/list.html">
+
+                                <i class="fa-solid fa-wallet"></i>
+
+                                Expense
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+                                <i class="fa-regular fa-calendar"></i>
+
+                                Calendar
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+                                <i class="fa-solid fa-chart-column"></i>
+
+                                Reports
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+                                <i class="fa-solid fa-bullseye"></i>
+
+                                Goals
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="../setting/setting.html">
+
+                                <i class="fa-solid fa-gear"></i>
+
+                                Settings
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+            </div>
+
+            <!-- Sidebar Card -->
+
+            <div class="sidebar-card">
+
+                <h3>
+
+                    Xây dựng thói quen
+
+                </h3>
+
+                <p>
+
+                    Những hành động nhỏ mỗi ngày sẽ tạo nên sự thay đổi lớn trong tương lai.
+
+                </p>
+
+                <img src="/LifeHub/app/static/IMG/plant.png" alt="Habit">
+
+            </div>
+
+        </aside>
+
+        <!-- ================= MAIN ================= -->
+
+        <main class="main">
+
+            <!-- ================= TOPBAR ================= -->
+
+            <header class="topbar">
+
+                <div class="top-left">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                    <h2>
+
+                        Thêm thói quen
+
+                    </h2>
+
+                </div>
+
+                <div class="top-right">
+
+                    <div class="theme-toggle">
+
+                        <span id="lightBtn">
+
+                            ☀️
+
+                        </span>
+
+                        <span id="darkBtn" class="active">
+
+                            🌙
+
+                        </span>
+
+                    </div>
+
+                    <div class="notification">
+
+                        <i class="fa-regular fa-bell"></i>
+
+                        <span class="badge">
+
+                            3
+
+                        </span>
+
+                    </div>
+
+                    <div class="user">
+
+                        <img src="../../static/IMG/default-avatar.png" id="topAvatar">
+
+                        <span>
+
+                            Xin chào, User
+
+                        </span>
+
+                        <i class="fa-solid fa-chevron-down"></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- ================= PAGE TITLE ================= -->
+
+            <section class="page-title">
+
+                <h1>
+
+                    Thêm thói quen mới
+
+                </h1>
+
+                <p>
+
+                    Thiết lập thói quen tốt để theo dõi và hoàn thành mục tiêu mỗi ngày.
+
+                </p>
+
+            </section>
+
+            <!-- ================= CONTENT ================= -->
+
+            <div class="content">
+
+                <!-- LEFT -->
+
+                <div class="left">
+
+                    <form class="habit-form">
+
+                        <div class="card">
+
+                            <h2>
+
+                                <i class="fa-solid fa-list-check"></i>
+
+                                Thông tin thói quen
+
+                            </h2>
+                            <!-- ================= CATEGORY & GOAL ================= -->
+
+                            <div class="row">
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Danh mục <span>*</span>
+
+                                    </label>
+
+                                    <select id="category">
+
+                                        <option>📚 Học tập</option>
+
+                                        <option>💪 Sức khỏe</option>
+
+                                        <option>🏃 Thể thao</option>
+
+                                        <option>💼 Công việc</option>
+
+                                        <option>🧘 Thiền</option>
+
+                                        <option>😴 Giấc ngủ</option>
+
+                                        <option>💧 Uống nước</option>
+
+                                        <option>📖 Đọc sách</option>
+
+                                    </select>
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Mục tiêu <span>*</span>
+
+                                    </label>
+
+                                    <input type="number" id="goal" placeholder="Ví dụ: 30">
+
+                                </div>
+
+                            </div>
+
+                            <!-- ================= UNIT & FREQUENCY ================= -->
+
+                            <div class="row">
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Đơn vị <span>*</span>
+
+                                    </label>
+
+                                    <select id="unit">
+
+                                        <option>Phút</option>
+
+                                        <option>Giờ</option>
+
+                                        <option>Lần</option>
+
+                                        <option>Trang</option>
+
+                                        <option>Ly</option>
+
+                                        <option>Km</option>
+
+                                    </select>
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Tần suất <span>*</span>
+
+                                    </label>
+
+                                    <select id="frequency">
+
+                                        <option>Hằng ngày</option>
+
+                                        <option>Hằng tuần</option>
+
+                                        <option>Hằng tháng</option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                            <!-- ================= HABIT NAME ================= -->
+
+                            <div class="form-group">
+
+                                <label>
+
+                                    Tên thói quen <span>*</span>
+
+                                </label>
+
+                                <input type="text" id="habitName" maxlength="100" placeholder="Ví dụ: Đọc sách 30 phút">
+
+                                <div class="count">
+
+                                    <span id="habitCount">
+
+                                        0
+
+                                    </span>
+
+                                    /100
+
+                                </div>
+
+                            </div>
+
+                            <!-- ================= START DATE ================= -->
+
+                            <div class="form-group">
+
+                                <label>
+
+                                    Ngày bắt đầu <span>*</span>
+
+                                </label>
+
+                                <input type="date" id="startDate">
+
+                            </div>
+
+                            <!-- ================= COLOR ================= -->
+
+                            <div class="form-group">
+
+                                <label>
+
+                                    Màu hiển thị
+
+                                </label>
+
+                                <input type="color" id="color" value="#4CAF50">
+
+                            </div>
+
+                            <!-- ================= NOTE ================= -->
+
+                            <div class="form-group">
+
+                                <label>
+
+                                    Ghi chú (tùy chọn)
+
+                                </label>
+
+                                <textarea id="note" rows="5" maxlength="200"
+                                    placeholder="Nhập ghi chú cho thói quen..."></textarea>
+
+                                <div class="count">
+
+                                    <span id="noteCount">
+
+                                        0
+
+                                    </span>
+
+                                    /200
+
+                                </div>
+
+                            </div>
+
+                            <!-- ================= ICON ================= -->
+
+                            <div class="form-group">
+
+                                <label>
+
+                                    Biểu tượng (tùy chọn)
+
+                                </label>
+
+                                <div class="upload-box" id="uploadBox">
+
+                                    <input type="file" id="icon" accept="image/*" hidden>
+
+                                    <i class="fa-solid fa-image"></i>
+
+                                    <h3>
+
+                                        Kéo thả hoặc chọn biểu tượng
+
+                                    </h3>
+
+                                    <p>
+
+                                        JPG, PNG (tối đa 2MB)
+
+                                    </p>
+
+                                    <small id="fileName">
+
+                                        Chưa chọn tệp
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                            <!-- ================= BUTTON ================= -->
+
+                            <div class="button-group">
+
+                                <button type="reset" class="cancel-btn">
+
+                                    Hủy bỏ
+
+                                </button>
+
+                                <button type="submit" class="save-btn">
+
+                                    <i class="fa-regular fa-floppy-disk"></i>
+
+                                    Lưu thói quen
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+                <!-- ================= RIGHT ================= -->
+
+                <div class="right">
+
+                    <!-- Preview -->
+
+                    <div class="card preview-card">
+
+                        <h2>
+
+                            <i class="fa-regular fa-eye"></i>
+
+                            Xem trước
+
+                        </h2>
+
+                        <div class="preview-box">
+
+                            <div class="habit-icon">
+
+                                📚
+
+                            </div>
+
+                            <h3 id="previewName">
+
+                                Đọc sách
+
+                            </h3>
+
+                            <div class="preview-info">
+
+                                <p>
+
+                                    <i class="fa-solid fa-bullseye"></i>
+
+                                    Mục tiêu:
+                                    <span id="previewGoal">
+
+                                        30 phút
+
+                                    </span>
+
+                                </p>
+
+                                <p>
+
+                                    <i class="fa-regular fa-calendar"></i>
+
+                                    Tần suất:
+                                    <span id="previewFrequency">
+
+                                        Hằng ngày
+
+                                    </span>
+
+                                </p>
+
+                                <p>
+
+                                    <i class="fa-solid fa-play"></i>
+
+                                    Bắt đầu:
+                                    <span id="previewDate">
+
+                                        Hôm nay
+
+                                    </span>
+
+                                </p>
+
+                                <p>
+
+                                    <i class="fa-solid fa-circle-check"></i>
+
+                                    Trạng thái:
+                                    <span class="status active">
+
+                                        Đang hoạt động
+
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Tips -->
+
+                    <div class="card tips-card">
+
+                        <h2>
+
+                            <i class="fa-solid fa-lightbulb"></i>
+
+                            Mẹo xây dựng thói quen
+
+                        </h2>
+
+                        <ul>
+
+                            <li>
+
+                                🔥 Đừng bỏ lỡ hai ngày liên tiếp.
+
+                            </li>
+
+                            <li>
+
+                                🎯 Bắt đầu với mục tiêu nhỏ rồi tăng dần.
+
+                            </li>
+
+                            <li>
+
+                                📅 Check-in mỗi ngày để duy trì chuỗi.
+
+                            </li>
+
+                            <li>
+
+                                🏆 Tự thưởng khi đạt được cột mốc.
+
+                            </li>
+
+                            <li>
+
+                                💚 Kiên trì quan trọng hơn sự hoàn hảo.
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <!-- Progress -->
+
+                    <div class="card progress-card">
+
+                        <h2>
+
+                            <i class="fa-solid fa-chart-line"></i>
+
+                            Thành tích dự kiến
+
+                        </h2>
+
+                        <div class="progress-item">
+
+                            <span>
+
+                                Chuỗi mục tiêu
+
+                            </span>
+
+                            <strong>
+
+                                30 ngày
+
+                            </strong>
+
+                        </div>
+
+                        <div class="progress-item">
+
+                            <span>
+
+                                Hoàn thành
+
+                            </span>
+
+                            <strong>
+
+                                0%
+
+                            </strong>
+
+                        </div>
+
+                        <div class="progress-item">
+
+                            <span>
+
+                                Huy hiệu tiếp theo
+
+                            </span>
+
+                            <strong>
+
+                                🥉 Beginner
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="../../static/JS/habit/add.js" defer></script>
+
+</body>
+
+</html>

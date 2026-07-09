@@ -1,189 +1,964 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const habits = [
-        {
-            icon: "💧",
-            title: "Uống 2L nước",
-            desc: "Uống đủ nước tốt cho sức khỏe",
-            streak: 12,
-            progress: 100,
-            tone: "#d8ecfb",
-            complete: true
-        },
-        {
-            icon: "🏃",
-            title: "Chạy bộ 30 phút",
-            desc: "Tăng cường sức khỏe tim mạch",
-            streak: 5,
-            progress: 60,
-            tone: "#fff0c7",
-            complete: false
-        },
-        {
-            icon: "📖",
-            title: "Đọc sách 20 phút",
-            desc: "Mở rộng kiến thức mỗi ngày",
-            streak: 8,
-            progress: 80,
-            tone: "#e9ddff",
-            complete: false
-        },
-        {
-            icon: "🧘",
-            title: "Thiền 10 phút",
-            desc: "Giảm căng thẳng, tập trung hơn",
-            streak: 3,
-            progress: 40,
-            tone: "#dff3df",
-            complete: false
-        },
-        {
-            icon: "🥦",
-            title: "Ăn rau xanh",
-            desc: "Ít nhất 1 bữa có rau xanh",
-            streak: 1,
-            progress: 20,
-            tone: "#ffd9df",
-            complete: false
-        }
-    ];
+// =====================================================
+// CONFIG
+// =====================================================
 
-    const stats = [
-        { icon: "🔥", title: "Streak hiện tại", value: "12 ngày", note: "Tuyệt vời! 🔥" },
-        { icon: "🎯", title: "Hoàn thành hôm nay", value: "4 / 5", note: "80%" },
-        { icon: "🗓️", title: "Tổng habits", value: "5", note: "Đang theo dõi" },
-        { icon: "📈", title: "Tỷ lệ hoàn thành tuần", value: "76%", note: "Cao hơn tuần trước 12% ↗", positive: true }
-    ];
+const API = "http://127.0.0.1:5000";
 
-    const state = {
-        query: "",
-        filter: "all"
-    };
+const uid = localStorage.getItem("uid");
 
-    renderStats(stats);
-    renderHabits(habits, state);
-    bindFilters(habits, state);
-    setupThemeToggle();
-    refreshIcons();
+const habitList = document.getElementById("habitList");
+
+const habitCount = document.getElementById("habitCount");
+
+const totalHabit = document.getElementById("totalHabit");
+
+const completedToday = document.getElementById("completedToday");
+
+const bestStreak = document.getElementById("bestStreak");
+
+const successRate = document.getElementById("successRate");
+
+const searchInput = document.getElementById("habitSearch");
+
+const filterSelect = document.getElementById("habitFilter");
+
+let habits = [];
+
+let currentHabit = null;
+
+
+
+// =====================================================
+// TODAY
+// =====================================================
+
+const today = new Date();
+
+document.getElementById("todayDate").innerHTML =
+today.toLocaleDateString("vi-VN",{
+
+    weekday:"long",
+
+    day:"2-digit",
+
+    month:"long",
+
+    year:"numeric"
+
 });
 
-function renderStats(stats) {
-    const grid = document.getElementById("statsGrid");
 
-    if (!grid) {
+
+
+
+
+// =====================================================
+// LOAD USER
+// =====================================================
+
+async function loadUser(){
+
+    if(!uid) return;
+
+    const response = await fetch(`${API}/user/${uid}`);
+
+    const result = await response.json();
+
+    if(result.success){
+
+        document.getElementById("topAvatar").src=result.avatar;
+
+        document.getElementById("username").innerHTML=result.firstname;
+
+    }
+
+}
+
+loadUser();
+
+
+
+
+// =====================================================
+// LOAD HABIT
+// =====================================================
+
+async function loadHabit(){
+
+    const response=await fetch(
+
+        `${API}/habit/list/${uid}`
+
+    );
+
+    const result=await response.json();
+
+    if(result.success){
+
+        habits=result.habits;
+
+        renderHabit(habits);
+
+    }
+
+}
+
+loadHabit();
+
+
+
+
+
+
+
+
+function renderHabit(data){
+
+    habitList.innerHTML="";
+
+    if(data.length===0){
+
+        habitList.innerHTML=`
+
+        <div class="empty-state">
+
+            <i data-lucide="sprout"></i>
+
+            <h3>
+
+                Chưa có Habit
+
+            </h3>
+
+            <p>
+
+                Hãy thêm Habit đầu tiên.
+
+            </p>
+
+        </div>
+
+        `;
+
+        lucide.createIcons();
+
         return;
+
     }
 
-    grid.innerHTML = stats.map(item => `
-        <article class="stat-card">
-            <div class="stat-icon" aria-hidden="true">${item.icon}</div>
-            <div>
-                <h2>${item.title}</h2>
-                <strong class="stat-value">${item.value}</strong>
-                <span class="stat-note ${item.positive ? "positive" : ""}">${item.note}</span>
-            </div>
-        </article>
-    `).join("");
+    data.forEach(habit=>{
+
+        let percent=Math.round(
+
+            habit.progress*100/habit.goal
+
+        );
+
+        if(percent>100) percent=100;
+
+        habitList.innerHTML+=`
+
+<div class="habit-card">
+
+<div class="habit-top">
+
+<div class="habit-left">
+
+<div
+
+class="habit-icon"
+
+style="background:${habit.color}20"
+
+>
+
+${habit.icon}
+
+</div>
+
+<div>
+
+<h3>
+
+${habit.habit_name}
+
+</h3>
+
+<span class="habit-category">
+
+${habit.category}
+
+</span>
+
+</div>
+
+</div>
+
+<div class="habit-right">
+
+🔥 ${habit.streak}
+
+</div>
+
+</div>
+
+<div class="habit-info">
+
+<div>
+
+<i data-lucide="target"></i>
+
+${habit.goal} ${habit.unit}
+
+</div>
+
+<div>
+
+<i data-lucide="repeat"></i>
+
+${habit.frequency}
+
+</div>
+
+<div>
+
+<i data-lucide="calendar-days"></i>
+
+${habit.start_date}
+
+</div>
+
+</div>
+
+<div class="progress-box">
+
+<div class="progress-header">
+
+<span>
+
+Tiến độ
+
+</span>
+
+<span>
+
+${habit.progress}/${habit.goal}
+
+${habit.unit}
+
+</span>
+
+</div>
+
+<div class="progress-bar">
+
+<div
+
+class="progress-fill"
+
+style="width:${percent}%"
+
+>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="habit-status
+
+${habit.completed?'success':'pending'}">
+
+<i
+
+data-lucide="${
+habit.completed
+?
+
+'circle-check-big'
+
+:
+
+'clock-3'
+
+}">
+
+</i>
+
+${habit.completed
+
+?
+
+'Đã hoàn thành'
+
+:
+
+'Chưa hoàn thành'
+
 }
 
-function bindFilters(habits, state) {
-    const search = document.getElementById("habitSearch");
-    const filter = document.getElementById("habitFilter");
+</div>
 
-    search?.addEventListener("input", event => {
-        state.query = event.target.value.trim().toLowerCase();
-        renderHabits(habits, state);
-        refreshIcons();
+<div class="habit-actions">
+
+<button
+
+class="check-btn"
+
+onclick="openCheckin(${habit.habit_id})"
+
+>
+
+<i data-lucide="check"></i>
+
+Check In
+
+</button>
+
+<button
+
+class="edit-btn"
+
+onclick="editHabit(${habit.habit_id})"
+
+>
+
+<i data-lucide="square-pen"></i>
+
+Edit
+
+</button>
+
+<button
+
+class="delete-btn"
+
+onclick="deleteHabit(${habit.habit_id})"
+
+>
+
+<i data-lucide="trash-2"></i>
+
+Delete
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
     });
 
-    filter?.addEventListener("change", event => {
-        state.filter = event.target.value;
-        renderHabits(habits, state);
-        refreshIcons();
-    });
+    lucide.createIcons();
+
+    updateStats(data);
+
 }
 
-function renderHabits(habits, state) {
-    const list = document.getElementById("habitList");
-    const count = document.getElementById("habitCount");
 
-    if (!list) {
+
+
+
+
+// =====================================================
+// UPDATE STATS
+// =====================================================
+
+function updateStats(data){
+
+    totalHabit.innerHTML = data.length;
+
+    let completed = 0;
+
+    let streak = 0;
+
+    let rate = 0;
+
+    data.forEach(habit=>{
+
+        if(habit.completed){
+
+            completed++;
+
+        }
+
+        if(habit.streak > streak){
+
+            streak = habit.streak;
+
+        }
+
+        rate += habit.goal == 0
+
+            ? 0
+
+            : (habit.progress / habit.goal);
+
+    });
+
+    completedToday.innerHTML = completed;
+
+    bestStreak.innerHTML = streak + " 🔥";
+
+    successRate.innerHTML =
+
+        data.length
+
+        ?
+
+        Math.round(rate / data.length *100) + "%"
+
+        :
+
+        "0%";
+
+    habitCount.innerHTML=
+
+        "Tổng cộng " +
+
+        data.length +
+
+        " Habit";
+
+}
+
+
+
+
+
+
+// =====================================================
+// SEARCH
+// =====================================================
+
+searchInput.addEventListener("input",()=>{
+
+    const keyword =
+
+    searchInput.value
+
+    .toLowerCase()
+
+    .trim();
+
+    const result = habits.filter(habit=>{
+
+        return habit.habit_name
+
+        .toLowerCase()
+
+        .includes(keyword);
+
+    });
+
+    renderHabit(result);
+
+});
+
+
+
+
+
+
+// =====================================================
+// FILTER
+// =====================================================
+
+filterSelect.addEventListener(
+
+"change",
+
+()=>{
+
+    const value = filterSelect.value;
+
+    let result=[...habits];
+
+    if(value==="daily"){
+
+        result=result.filter(
+
+        h=>h.frequency==="Daily"
+
+        );
+
+    }
+
+    if(value==="weekly"){
+
+        result=result.filter(
+
+        h=>h.frequency==="Weekly"
+
+        );
+
+    }
+
+    if(value==="monthly"){
+
+        result=result.filter(
+
+        h=>h.frequency==="Monthly"
+
+        );
+
+    }
+
+    if(value==="complete"){
+
+        result=result.filter(
+
+        h=>h.completed
+
+        );
+
+    }
+
+    if(value==="progress"){
+
+        result=result.filter(
+
+        h=>!h.completed
+
+        );
+
+    }
+
+    renderHabit(result);
+
+});
+
+
+
+
+
+
+
+
+// =====================================================
+// ADD
+// =====================================================
+
+document
+
+.getElementById("addHabit")
+
+.onclick=function(){
+
+    location.href="add.html";
+
+};
+
+
+
+
+
+
+// =====================================================
+// EDIT
+// =====================================================
+
+function editHabit(id){
+
+    location.href=
+
+    "edit.html?id="+id;
+
+}
+
+
+
+
+
+
+
+
+
+
+// =====================================================
+// DELETE
+// =====================================================
+
+let deleteID = null;
+
+function deleteHabit(id){
+
+    deleteID = id;
+
+    document
+
+    .getElementById("deleteModal")
+
+    .classList
+
+    .add("active");
+
+}
+
+
+
+document.querySelectorAll(".cancel-btn").forEach(btn=>{
+
+    btn.onclick=function(){
+
+        document
+
+        .querySelectorAll(".modal")
+
+        .forEach(modal=>{
+
+            modal.classList.remove("active");
+
+        });
+
+    };
+
+});
+
+
+
+
+
+
+document
+
+.querySelector(".delete-confirm")
+
+.onclick = async function(){
+
+    const response = await fetch(
+
+        API+"/habit/delete/"+deleteID,
+
+        {
+
+            method:"DELETE"
+
+        }
+
+    );
+
+    const result=await response.json();
+
+    if(result.success){
+
+        showToast(
+
+            "Đã xóa Habit"
+
+        );
+
+        loadHabit();
+
+    }
+
+    document
+
+    .getElementById("deleteModal")
+
+    .classList
+
+    .remove("active");
+
+};
+
+
+
+
+
+// =====================================================
+// CHECK IN
+// =====================================================
+
+const checkinModal =
+document.getElementById("checkinModal");
+
+const progressInput =
+document.getElementById("progressInput");
+
+const modalHabitName =
+document.getElementById("modalHabitName");
+
+const modalHabitGoal =
+document.getElementById("modalHabitGoal");
+
+const unitText =
+document.getElementById("unitText");
+
+
+
+function openCheckin(id){
+
+    currentHabit = habits.find(
+
+        habit=>habit.habit_id==id
+
+    );
+
+    if(!currentHabit) return;
+
+    modalHabitName.innerHTML =
+    currentHabit.habit_name;
+
+    modalHabitGoal.innerHTML =
+    "Goal : " +
+    currentHabit.goal +
+    " " +
+    currentHabit.unit;
+
+    unitText.innerHTML =
+    "Đơn vị : " +
+    currentHabit.unit;
+
+    progressInput.value="";
+
+    checkinModal.classList.add("active");
+
+}
+
+
+
+
+
+
+
+
+
+
+// =====================================================
+// CLOSE CHECKIN
+// =====================================================
+
+document
+
+.getElementById("closeCheckin")
+
+.onclick=function(){
+
+    checkinModal
+
+    .classList
+
+    .remove("active");
+
+};
+
+
+
+window.onclick=function(e){
+
+    if(e.target===checkinModal){
+
+        checkinModal
+
+        .classList
+
+        .remove("active");
+
+    }
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+// =====================================================
+// SAVE CHECKIN
+// =====================================================
+
+document
+
+.querySelector(".save-btn")
+
+.onclick=async function(){
+
+    const progress =
+
+    Number(
+
+        progressInput.value
+
+    );
+
+    if(progress<=0){
+
+        alert("Nhập tiến độ.");
+
         return;
+
     }
 
-    const filteredHabits = habits.filter(habit => {
-        const matchesQuery = `${habit.title} ${habit.desc}`.toLowerCase().includes(state.query);
-        const matchesFilter = state.filter === "all"
-            || (state.filter === "complete" && habit.complete)
-            || (state.filter === "progress" && !habit.complete);
+    const data={
 
-        return matchesQuery && matchesFilter;
-    });
+        uid:uid,
 
-    if (!filteredHabits.length) {
-        list.innerHTML = '<div class="empty-state">Không tìm thấy habit phù hợp.</div>';
-    } else {
-        list.innerHTML = filteredHabits.map(habit => `
-            <article class="habit-row">
-                <div class="habit-info">
-                    <span class="habit-emoji" style="--tone:${habit.tone}" aria-hidden="true">${habit.icon}</span>
-                    <div>
-                        <div class="habit-title">
-                            <h3>${habit.title}</h3>
-                            <span class="tag">Daily</span>
-                        </div>
-                        <p>${habit.desc}</p>
-                    </div>
-                </div>
+        habit_id:currentHabit.habit_id,
 
-                <div class="progress-area">
-                    <div class="progress-wrap">
-                        <div class="progress-track">
-                            <div class="progress-fill" style="--progress:${habit.progress}%"></div>
-                        </div>
-                        <span class="progress-value">${habit.progress}%</span>
-                    </div>
-                    <div class="streak">Streak: ${habit.streak} ngày ${habit.streak > 3 ? "🔥" : ""}</div>
-                </div>
+        progress:progress,
 
-                <button class="check-button" type="button">Check-in</button>
-                <button class="action-button" type="button" aria-label="Sửa ${habit.title}">
-                    <i data-lucide="pencil"></i>
-                </button>
-                <button class="action-button delete" type="button" aria-label="Xóa ${habit.title}">
-                    <i data-lucide="trash-2"></i>
-                </button>
-            </article>
-        `).join("");
+        checkin_date:
+
+        new Date()
+
+        .toISOString()
+
+        .slice(0,10)
+
+    };
+
+    const response=
+
+    await fetch(
+
+        API+"/checkin/add",
+
+        {
+
+            method:"POST",
+
+            headers:{
+
+                "Content-Type":
+
+                "application/json"
+
+            },
+
+            body:JSON.stringify(data)
+
+        }
+
+    );
+
+    const result=
+
+    await response.json();
+
+    if(result.success){
+
+        checkinModal
+
+        .classList
+
+        .remove("active");
+
+        showToast(
+
+            "Check In thành công"
+
+        );
+
+        loadHabit();
+
     }
 
-    if (count) {
-        const total = habits.length;
-        const shown = filteredHabits.length;
-        count.textContent = shown
-            ? `Hiển thị 1 - ${shown} trong ${total} habit`
-            : `Hiển thị 0 trong ${total} habit`;
+    else{
+
+        alert(result.message);
+
     }
+
+};
+
+
+
+
+
+
+// =====================================================
+// TOAST
+// =====================================================
+
+function showToast(message){
+
+    const toast=
+
+    document.getElementById("toast");
+
+    document
+
+    .getElementById("toastMessage")
+
+    .innerHTML=message;
+
+    toast.classList.add("show");
+
+    setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },3000);
+
 }
 
-function setupThemeToggle() {
-    const toggle = document.getElementById("themeToggle");
-    const savedTheme = localStorage.getItem("lifehubHabitTheme");
-    const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
-    const shouldUseDark = savedTheme ? savedTheme === "dark" : prefersDark;
 
-    document.body.classList.toggle("dark-mode", shouldUseDark);
-    toggle?.setAttribute("aria-pressed", String(shouldUseDark));
 
-    toggle?.addEventListener("click", () => {
-        const isDark = document.body.classList.toggle("dark-mode");
-        localStorage.setItem("lifehubHabitTheme", isDark ? "dark" : "light");
-        toggle.setAttribute("aria-pressed", String(isDark));
-        refreshIcons();
-    });
+
+
+
+
+// =====================================================
+// THEME
+// =====================================================
+
+const themeToggle=
+
+document.getElementById(
+
+"themeToggle"
+
+);
+
+themeToggle.onclick=function(){
+
+    document.body.classList.toggle(
+
+        "dark"
+
+    );
+
+    localStorage.setItem(
+
+        "theme",
+
+        document.body.classList.contains("dark")
+
+    );
+
+};
+
+if(
+
+localStorage.getItem("theme")
+
+==="true"
+
+){
+
+    document.body.classList.add(
+
+        "dark"
+
+    );
+
 }
+// =====================================================
+// INIT
+// =====================================================
 
-function refreshIcons() {
-    if (window.lucide) {
-        window.lucide.createIcons();
-    }
-}
+lucide.createIcons();
+
+loadUser();
+
+loadHabit();

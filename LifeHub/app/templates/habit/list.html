@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/LifeHub/app/static/CSS/habit/list.css">
 </head>
+
 <body>
     <aside class="sidebar">
         <a class="brand" href="#">
@@ -65,81 +67,834 @@
     </aside>
 
     <main class="habit-page">
+
+        <!-- ================= TOPBAR ================= -->
+
         <header class="topbar">
+
             <div class="topbar-left">
-                <button class="menu-button" type="button" aria-label="Mở menu">
+
+                <button class="menu-button" type="button">
+
                     <i data-lucide="menu"></i>
+
                 </button>
-                <strong>Habit Tracker</strong>
+
+                <div>
+
+                    <h2>Habit Tracker</h2>
+
+                    <small id="todayDate"></small>
+
+                </div>
+
             </div>
 
             <div class="topbar-right">
-                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Chuyển dark light mode" aria-pressed="false">
+
+                <button class="theme-toggle" id="themeToggle">
+
                     <span class="theme-option sun">
+
                         <i data-lucide="sun"></i>
+
                     </span>
+
                     <span class="theme-option moon">
+
                         <i data-lucide="moon"></i>
+
                     </span>
+
                 </button>
-                <button class="icon-button notify-button" type="button" aria-label="Thông báo">
+
+                <button class="icon-button">
+
                     <i data-lucide="bell"></i>
-                    <span></span>
+
+                    <span class="notify-dot"></span>
+
                 </button>
-                <button class="user-menu" type="button">
-                    <span class="avatar">👨🏻</span>
-                    <span>Xin chào, User</span>
+
+                <button class="user-menu">
+
+                    <img id="topAvatar" src="#">
+
+                    <span id="username">
+
+                        Xin chào
+
+                    </span>
+
                     <i data-lucide="chevron-down"></i>
+
                 </button>
+
             </div>
+
         </header>
 
+
+
+        <!-- ================= HERO ================= -->
+
         <section class="hero-row">
+
             <div>
-                <h1>Habit Tracker</h1>
-                <p>Xây dựng thói quen tốt mỗi ngày để trở thành phiên bản tốt hơn của bạn.</p>
+
+                <h1>
+
+                    Build Better Habits 🚀
+
+                </h1>
+
+                <p>
+
+                    Mỗi ngày tiến bộ 1% sẽ tạo nên sự khác biệt rất lớn trong tương lai.
+
+                </p>
+
             </div>
-            <button class="add-button" type="button">
+
+            <button class="add-button" id="addHabit">
+
                 <i data-lucide="plus"></i>
-                <span>Thêm Habit</span>
+
+                <span>
+
+                    Thêm Habit
+
+                </span>
+
             </button>
+
         </section>
 
-        <section class="stats-grid" id="statsGrid" aria-label="Thống kê habit"></section>
+
+
+        <!-- ================= STATS ================= -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card blue">
+
+                <div>
+
+                    <small>Tổng Habit</small>
+
+                    <h2 id="totalHabit">
+
+                        0
+
+                    </h2>
+
+                </div>
+
+                <i data-lucide="list-checks"></i>
+
+            </div>
+
+
+
+            <div class="stat-card green">
+
+                <div>
+
+                    <small>Hoàn thành hôm nay</small>
+
+                    <h2 id="completedToday">
+
+                        0
+
+                    </h2>
+
+                </div>
+
+                <i data-lucide="circle-check-big"></i>
+
+            </div>
+
+
+
+            <div class="stat-card orange">
+
+                <div>
+
+                    <small>Streak dài nhất</small>
+
+                    <h2 id="bestStreak">
+
+                        0🔥
+
+                    </h2>
+
+                </div>
+
+                <i data-lucide="flame"></i>
+
+            </div>
+
+
+
+            <div class="stat-card purple">
+
+                <div>
+
+                    <small>Tỷ lệ hoàn thành</small>
+
+                    <h2 id="successRate">
+
+                        0%
+
+                    </h2>
+
+                </div>
+
+                <i data-lucide="chart-column"></i>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= PANEL ================= -->
 
         <section class="habit-panel">
+
             <div class="panel-header">
-                <h2>Danh sách Habit</h2>
+
+                <h2>
+
+                    Danh sách Habit
+
+                </h2>
+
+
+
                 <div class="filters">
+
                     <label class="search-field">
+
                         <i data-lucide="search"></i>
-                        <input id="habitSearch" type="search" placeholder="Tìm kiếm habit..." aria-label="Tìm kiếm habit">
+
+                        <input id="habitSearch" type="search" placeholder="Tìm kiếm habit...">
+
                     </label>
+
+
+
                     <label class="filter-select">
-                        <select id="habitFilter" aria-label="Lọc habit">
-                            <option value="all">Tất cả</option>
-                            <option value="complete">Hoàn thành</option>
-                            <option value="progress">Đang làm</option>
+
+                        <select id="habitFilter">
+
+                            <option value="all">
+
+                                Tất cả
+
+                            </option>
+
+                            <option value="daily">
+
+                                Daily
+
+                            </option>
+
+                            <option value="weekly">
+
+                                Weekly
+
+                            </option>
+
+                            <option value="monthly">
+
+                                Monthly
+
+                            </option>
+
+                            <option value="complete">
+
+                                Đã hoàn thành
+
+                            </option>
+
+                            <option value="progress">
+
+                                Chưa hoàn thành
+
+                            </option>
+
                         </select>
-                        <i data-lucide="chevron-down"></i>
+
                     </label>
+
                 </div>
+
             </div>
 
-            <div class="habit-list" id="habitList" aria-live="polite"></div>
+            <!-- ================= HABIT LIST ================= -->
+
+            <div class="habit-list" id="habitList">
+
+                <!-- Card 1 -->
+
+                <div class="habit-card">
+
+                    <div class="habit-top">
+
+                        <div class="habit-left">
+
+                            <div class="habit-icon">
+
+                                📚
+
+                            </div>
+
+                            <div>
+
+                                <h3>
+
+                                    Đọc sách
+
+                                </h3>
+
+                                <span class="habit-category">
+
+                                    Học tập
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="habit-right">
+
+                            🔥 <span>12 ngày</span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="habit-info">
+
+                        <div>
+
+                            <i data-lucide="target"></i>
+
+                            30 phút
+
+                        </div>
+
+                        <div>
+
+                            <i data-lucide="repeat"></i>
+
+                            Daily
+
+                        </div>
+
+                        <div>
+
+                            <i data-lucide="calendar-days"></i>
+
+                            05/07/2026
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="progress-box">
+
+                        <div class="progress-header">
+
+                            <span>
+
+                                Tiến độ hôm nay
+
+                            </span>
+
+                            <span>
+
+                                24 / 30 phút
+
+                            </span>
+
+                        </div>
+
+                        <div class="progress-bar">
+
+                            <div class="progress-fill" style="width:80%"></div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="habit-status success">
+
+                        <i data-lucide="circle-check-big"></i>
+
+                        Đã hoàn thành hôm nay
+
+                    </div>
+
+
+
+                    <div class="habit-actions">
+
+                        <button class="check-btn">
+
+                            <i data-lucide="check"></i>
+
+                            Check In
+
+                        </button>
+
+                        <button class="edit-btn">
+
+                            <i data-lucide="square-pen"></i>
+
+                            Edit
+
+                        </button>
+
+                        <button class="delete-btn">
+
+                            <i data-lucide="trash-2"></i>
+
+                            Delete
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Card 2 -->
+
+                <div class="habit-card">
+
+                    <div class="habit-top">
+
+                        <div class="habit-left">
+
+                            <div class="habit-icon">
+
+                                🏃
+
+                            </div>
+
+                            <div>
+
+                                <h3>
+
+                                    Chạy bộ
+
+                                </h3>
+
+                                <span class="habit-category">
+
+                                    Sức khỏe
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="habit-right">
+
+                            🔥 <span>5 ngày</span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="habit-info">
+
+                        <div>
+
+                            <i data-lucide="target"></i>
+
+                            5 km
+
+                        </div>
+
+                        <div>
+
+                            <i data-lucide="repeat"></i>
+
+                            Daily
+
+                        </div>
+
+                        <div>
+
+                            <i data-lucide="calendar-days"></i>
+
+                            05/07/2026
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="progress-box">
+
+                        <div class="progress-header">
+
+                            <span>
+
+                                Tiến độ hôm nay
+
+                            </span>
+
+                            <span>
+
+                                2 / 5 km
+
+                            </span>
+
+                        </div>
+
+                        <div class="progress-bar">
+
+                            <div class="progress-fill warning" style="width:40%"></div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="habit-status pending">
+
+                        <i data-lucide="clock-3"></i>
+
+                        Chưa hoàn thành
+
+                    </div>
+
+
+
+                    <div class="habit-actions">
+
+                        <button class="check-btn">
+
+                            <i data-lucide="check"></i>
+
+                            Check In
+
+                        </button>
+
+                        <button class="edit-btn">
+
+                            <i data-lucide="square-pen"></i>
+
+                            Edit
+
+                        </button>
+
+                        <button class="delete-btn">
+
+                            <i data-lucide="trash-2"></i>
+
+                            Delete
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Empty State -->
+
+                <div class="empty-state" style="display:none">
+
+                    <i data-lucide="sprout"></i>
+
+                    <h3>
+
+                        Chưa có Habit nào
+
+                    </h3>
+
+                    <p>
+
+                        Hãy tạo Habit đầu tiên để bắt đầu hành trình xây dựng thói quen.
+
+                    </p>
+
+                    <button class="add-button">
+
+                        <i data-lucide="plus"></i>
+
+                        Thêm Habit
+
+                    </button>
+
+                </div>
+
+            </div>
+            <!-- ================= FOOTER ================= -->
 
             <footer class="panel-footer">
-                <span id="habitCount">Hiển thị 1 - 5 trong 5 habit</span>
-                <div class="pagination" aria-label="Phân trang">
-                    <button type="button" aria-label="Trang trước"><i data-lucide="chevron-left"></i></button>
-                    <button class="active" type="button" aria-current="page">1</button>
-                    <button type="button" aria-label="Trang sau"><i data-lucide="chevron-right"></i></button>
+
+                <span id="habitCount">
+
+                    Hiển thị 1 - 5 trong 20 Habit
+
+                </span>
+
+                <div class="pagination">
+
+                    <button>
+
+                        <i data-lucide="chevron-left"></i>
+
+                    </button>
+
+                    <button class="active">
+
+                        1
+
+                    </button>
+
+                    <button>
+
+                        2
+
+                    </button>
+
+                    <button>
+
+                        3
+
+                    </button>
+
+                    <button>
+
+                        <i data-lucide="chevron-right"></i>
+
+                    </button>
+
                 </div>
+
             </footer>
+
         </section>
+
+
+
+        <!-- ================================================= -->
+        <!-- CHECK IN MODAL -->
+        <!-- ================================================= -->
+
+        <div class="modal" id="checkinModal">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h2>
+
+                        ✔ Check In Habit
+
+                    </h2>
+
+                    <button id="closeCheckin">
+
+                        ✕
+
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="habit-preview">
+
+                        <div class="habit-preview-icon">
+
+                            📚
+
+                        </div>
+
+                        <div>
+
+                            <h3 id="modalHabitName">
+
+                                Đọc sách
+
+                            </h3>
+
+                            <p id="modalHabitGoal">
+
+                                Goal: 30 phút
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <label>
+
+                        Hôm nay bạn đã hoàn thành bao nhiêu?
+
+                    </label>
+
+                    <input type="number" id="progressInput" placeholder="Nhập tiến độ...">
+
+
+
+                    <small id="unitText">
+
+                        Đơn vị: phút
+
+                    </small>
+
+
+
+                    <div class="modal-buttons">
+
+                        <button class="cancel-btn">
+
+                            Hủy
+
+                        </button>
+
+                        <button class="save-btn">
+
+                            ✔ Xác nhận
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================================================= -->
+        <!-- DELETE MODAL -->
+        <!-- ================================================= -->
+
+        <div class="modal" id="deleteModal">
+
+            <div class="modal-content delete-content">
+
+                <div class="delete-icon">
+
+                    🗑
+
+                </div>
+
+                <h2>
+
+                    Xóa Habit
+
+                </h2>
+
+                <p>
+
+                    Bạn có chắc muốn xóa Habit này?
+
+                </p>
+
+                <span>
+
+                    Dữ liệu Check In cũng sẽ bị xóa.
+
+                </span>
+
+                <div class="modal-buttons">
+
+                    <button class="cancel-btn">
+
+                        Hủy
+
+                    </button>
+
+                    <button class="delete-confirm">
+
+                        Xóa
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================================================= -->
+        <!-- TOAST -->
+        <!-- ================================================= -->
+
+        <div id="toast">
+
+            <div class="toast-icon">
+
+                ✔
+
+            </div>
+
+            <div>
+
+                <strong>
+
+                    Thành công
+
+                </strong>
+
+                <p id="toastMessage">
+
+                    Đã cập nhật Habit.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
     </main>
 
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script defer src="/LifeHub/app/static/JS/habit/list.js"></script>
+
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+
+        lucide.createIcons();
+
+    </script>
+
+    <script src="/LifeHub/app/static/JS/habit/list.js"></script>
+
 </body>
+
 </html>

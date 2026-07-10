@@ -148,11 +148,11 @@ function renderHabit(data){
 
     data.forEach(habit=>{
 
-        let percent=Math.round(
+        const progress = Number(habit.progress || 0);
 
-            habit.progress*100/habit.goal
+        const goal = Number(habit.goal || 1);
 
-        );
+        let percent = Math.round(progress*100/goal);
 
         if(percent>100) percent=100;
 
@@ -703,7 +703,7 @@ function openCheckin(id){
     modalHabitName.innerHTML =
     currentHabit.habit_name;
 
-    modalHabitGoal.innerHTML =
+    modalGoal.innerHTML =
     "Goal : " +
     currentHabit.goal +
     " " +
@@ -924,7 +924,7 @@ themeToggle.onclick=function(){
 
     document.body.classList.toggle(
 
-        "dark"
+        "dark-mode"
 
     );
 
@@ -932,7 +932,7 @@ themeToggle.onclick=function(){
 
         "theme",
 
-        document.body.classList.contains("dark")
+        document.body.classList.contains("dark-mode")
 
     );
 
@@ -948,7 +948,7 @@ localStorage.getItem("theme")
 
     document.body.classList.add(
 
-        "dark"
+        "dark-mode"
 
     );
 

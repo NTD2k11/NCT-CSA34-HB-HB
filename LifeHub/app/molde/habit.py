@@ -92,44 +92,7 @@ def add_habit():
 
         }),500
     
-@habit_bp.route("/habit/list/<int:uid>")
-def get_habits(uid):
 
-    conn=sqlite3.connect(DB_PATH)
-
-    conn.row_factory=sqlite3.Row
-
-    cursor=conn.cursor()
-
-    cursor.execute("""
-
-        SELECT *
-
-        FROM Habit
-
-        WHERE uid=?
-
-        ORDER BY habit_id DESC
-
-    """,(uid,))
-
-    rows=cursor.fetchall()
-
-    conn.close()
-
-    habits=[]
-
-    for row in rows:
-
-        habits.append(dict(row))
-
-    return jsonify({
-
-        "success":True,
-
-        "habits":habits
-
-    })
 
 
 
